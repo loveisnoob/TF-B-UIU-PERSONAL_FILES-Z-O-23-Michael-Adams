@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAISA Secure Terminal</title>
+    <title>UIU Secure Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,17 @@
             background-color: #000;
             color: #FFF;
             overflow: hidden;
-            cursor: none;
-            background-image: url('https://github.com/Bapoooossssaaaa/SCPFILE/blob/main/Untitled%20video%20-%20Made%20with%20Clipchamp.gif?raw=true');
+            background-image: url('https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Untitled%20video%20-%20Made%20with%20Clipchamp.gif');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+        }
+        * {
+            cursor: none !important;
+        }
+        button, a, [onclick] {
+            cursor: none !important;
+            pointer-events: auto;
         }
         body::after {
             content: "";
@@ -64,23 +70,19 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
-         ::-webkit-scrollbar-track {
+        ::-webkit-scrollbar-track {
             background: #2d3748;
         }
         ::-webkit-scrollbar-thumb {
             background: #718096;
         }
 
-        
         .interactive-button {
             transition: all 0.2s ease-in-out;
         }
         .interactive-button:hover:not(:disabled) {
             transform: scale(1.05);
             text-shadow: 0 0 8px currentColor;
-        }
-        .file-list-item:hover {
-             background-color: #4a5568;
         }
 
         #memetic-agent img {
@@ -89,13 +91,13 @@
         }
         
         .highlight-text {
-             @apply text-cyan-300;
+            @apply text-cyan-300;
         }
         .section-title {
             @apply text-yellow-400 text-lg border-b-2 border-gray-600 pb-2 mb-3 mt-4 font-bold;
         }
         .info-grid {
-             @apply grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2;
+            @apply grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2;
         }
         .info-item strong {
             @apply text-gray-400;
@@ -117,33 +119,6 @@
             100% { opacity: 1; }
         }
 
-        .glitch-text {
-            color: #ff9999;
-            text-shadow: 0 0 3px #ff6666;
-            animation: glitchy 0.5s infinite;
-            cursor: pointer;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        @keyframes glitchy {
-          0% { transform: translate(0); }
-          20% { transform: translate(-2px, 1px); }
-          40% { transform: translate(1px, -1px); }
-          60% { transform: translate(2px, 2px); }
-          80% { transform: translate(-1px, -2px); }
-          100% { transform: translate(0); }
-        }
-
-        .digit-container {
-            @apply flex flex-col items-center;
-        }
-        .arrow-button {
-            @apply text-2xl hover:text-yellow-400 transition-colors;
-        }
-        .digit-box {
-            @apply w-16 h-20 bg-gray-800 border-2 border-white text-5xl flex items-center justify-center transition-colors;
-        }
         .fade-in {
             animation: fadeIn 2s forwards;
         }
@@ -174,8 +149,7 @@
     <div id="generic-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
         <div id="modal-content-container" class="relative bg-gray-900 border-2 border-yellow-500 p-6 rounded-lg shadow-xl w-full max-w-3xl overflow-y-auto">
             <button id="modal-close-button" class="absolute top-2 right-2 text-white text-2xl font-bold hover:text-yellow-400">&times;</button>
-            <div id="modal-content-body">
-            </div>
+            <div id="modal-content-body"></div>
         </div>
     </div>
 
@@ -189,11 +163,9 @@
         </div>
     </div>
 
-
     <div id="bios-screen" class="hidden flex-col items-start justify-start p-8 h-full w-full fixed inset-0 bg-black z-40 text-white">
-        <p class="terminal-text text-lg">Powered by SCiPNET</p>
-        <div id="bios-text" class="mt-8 text-sm w-full">
-        </div>
+        <p class="terminal-text text-lg">Powered by USOCNET</p>
+        <div id="bios-text" class="mt-8 text-sm w-full"></div>
     </div>
     
     <div id="error-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[70]">
@@ -205,8 +177,8 @@
     
     <div id="login-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[70]">
         <div class="bg-gray-900 border-2 border-yellow-500 p-8 rounded-lg shadow-xl text-left w-full max-w-md">
-            <h2 class="text-xl text-yellow-500 mb-4">RAISA AUTHENTICATION REQUIRED</h2>
-            <p>Please enter your Designated RAISA Clearance Code:</p>
+            <h2 class="text-xl text-yellow-500 mb-4">UIU AUTHENTICATION REQUIRED</h2>
+            <p>Please enter your Designated UIU Clearance Code:</p>
             <div class="bg-black p-2 mt-2 h-8">
                 <span id="login-code"></span><span class="animate-ping">_</span>
             </div>
@@ -214,59 +186,20 @@
     </div>
 
     <div id="memetic-agent" class="fixed inset-0 bg-black flex items-center justify-center z-[75] opacity-0 transition-opacity duration-1000 pointer-events-none">
-        <img src="https://github.com/Bapoooossssaaaa/SCPFILE/blob/main/assets_task_01k7n8gyf7f7nrqynthtchbceh_1760576470_img_0.webp?raw=true" alt="MEMETIC KILL AGENT ACTIVATED" class="max-w-full max-h-full object-contain">
+        <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/assets_task_01k7n8gyf7f7nrqynthtchbceh_1760576470_img_0.webp" alt="MEMETIC KILL AGENT ACTIVATED" class="max-w-full max-h-full object-contain">
     </div>
-
-    <div id="cognitohazard-sequence" class="hidden fixed inset-0 bg-black z-50 flex flex-col items-center justify-center text-center p-8">
-    </div>
-
 
     <div id="main-terminal" class="hidden h-full flex flex-col">
         <div class="w-full bg-gray-700 bg-opacity-80 p-2 text-gray-200 flex items-center flex-shrink-0" style="border-bottom: 2px solid rgba(255, 255, 255, 0.7);">
-            <img src="https://github.com/Bapoooossssaaaa/SCPFILE/blob/main/Logo_SCP_Foundation-removebg-preview.png?raw=true" alt="SCP Logo" class="h-8 w-8 mr-4">
-            <span class="mr-6">ID: RAISA-TERM-S45-03</span>
-            <span class="mr-6">LOCATION: Site-45</span>
+            <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Logo_SCP_Foundation-removebg-preview.png" alt="UIU Logo" class="h-8 w-8 mr-4">
+            <span class="mr-6">ID: UIU-TERM-03</span>
+            <span class="mr-6">LOCATION: PENTAGRAM</span>
             <span id="timestamp"></span>
         </div>
 
         <div class="flex-grow overflow-hidden" id="terminal-content-wrapper">
-            <div class="p-4 h-full overflow-y-auto" id="terminal-content">
-            </div>
-
-            <div id="archive-screen" class="hidden h-full flex flex-col">
-                <div id="pending-review-bar" class="bg-black p-2 flex-shrink-0 border-b-2 border-yellow-400">
-                    <p class="text-yellow-400 text-center">1 File pending review… <a href="#" id="review-button" class="bg-yellow-400 text-black px-2 py-1 interactive-button">[REVIEW]</a></p>
-                </div>
-                <div class="flex-grow flex flex-col overflow-hidden bg-gray-900 bg-opacity-50">
-                    <div id="file-list-container" class="w-full h-full p-4 overflow-y-auto">
-                        <div class="bg-gray-700 p-2 font-bold mb-4">Archived Personnel Files</div>
-                        <div id="file-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_101-A.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_199-D.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_217-C.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600" data-file-id="winters">Personnel_File_301-C.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_458-B.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_505-A.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_682-R.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_788-D.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_882-F.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_893-A.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_932-A.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_939-EXP.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_1045-C.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_1556-E.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_1984-A.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_2011-B.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_2109-B.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_2521-INFO.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_3001-H.log</p>
-                            <p class="p-2 cursor-pointer file-list-item border border-gray-600">Personnel_File_4000-ARC.log</p>
-                        </div>
-                    </div>
-                    <div id="file-content-view" class="w-full h-full overflow-y-auto bg-black bg-opacity-30 hidden">
-                    </div>
-                </div>
-            </div>
+            <div class="p-4 h-full overflow-y-auto" id="terminal-content"></div>
+            <div id="personnel-file-screen" class="hidden h-full overflow-y-auto bg-gray-900 bg-opacity-50 p-4"></div>
         </div>
     </div>
 
@@ -280,18 +213,12 @@
             const biosText = document.getElementById('bios-text');
             const mainTerminal = document.getElementById('main-terminal');
             const terminalContent = document.getElementById('terminal-content');
-            const archiveScreen = document.getElementById('archive-screen');
+            const personnelFileScreen = document.getElementById('personnel-file-screen');
             const customCursor = document.getElementById('custom-cursor');
             const errorPopup = document.getElementById('error-popup');
             const errorMessage = document.getElementById('error-message');
             const loginPopup = document.getElementById('login-popup');
             const loginCode = document.getElementById('login-code');
-            const fileListContainer = document.getElementById('file-list-container');
-            const fileListView = document.getElementById('file-list');
-            const fileContentView = document.getElementById('file-content-view');
-            const reviewButton = document.getElementById('review-button');
-            const pendingReviewBar = document.getElementById('pending-review-bar');
-            const cognitohazardSequence = document.getElementById('cognitohazard-sequence');
             const genericModal = document.getElementById('generic-modal');
             const modalContentBody = document.getElementById('modal-content-body');
             const modalCloseButton = document.getElementById('modal-close-button');
@@ -300,16 +227,13 @@
                 modalContentBody.innerHTML = content;
                 genericModal.classList.remove('hidden');
             }
+            
             function hideModal() {
                 genericModal.classList.add('hidden');
                 modalContentBody.innerHTML = '';
             }
+            
             modalCloseButton.addEventListener('click', hideModal);
-
-            reviewButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelector('[data-file-id="winters"]')?.click();
-            });
 
             document.addEventListener('mousemove', e => {
                 customCursor.style.left = e.clientX + 'px';
@@ -340,557 +264,513 @@
                 }
                 type();
             }
-            
-            const fileTemplates = {
-                winters: `
-                    <div class="p-4">
-                        <div class="flex justify-between items-start mb-4">
-                             <h2 class="text-2xl text-yellow-300">PERSONNEL FILE: WINTERS, ANABELLA</h2>
-                             <div class="flex-shrink-0 ml-4">
-                                <button id="back-to-files" class="text-yellow-400 interactive-button mb-2 text-sm block">[<-- Back to Archive]</button>
-                                <button id="download-pdf" class="bg-blue-500 text-white px-2 py-1 interactive-button text-sm block w-full">[Download as PDF]</button>
-                             </div>
+
+            function loadPersonnelFile() {
+                document.getElementById('terminal-content').style.display = 'none';
+                personnelFileScreen.classList.remove('hidden');
+                
+                personnelFileScreen.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                         <h2 class="text-2xl text-yellow-300">PERSONNEL FILE: ADAMS, MICHAEL</h2>
+                         <div class="flex-shrink-0 ml-4">
+                            <button id="download-pdf" class="bg-blue-500 text-white px-2 py-1 interactive-button text-sm block w-full">[Download as PDF]</button>
+                         </div>
+                    </div>
+
+                    <div id="pdf-content" class="text-sm">
+                         <div class="flex border-b border-gray-600 mb-4 flex-wrap">
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white active" data-tab="service-record">Service Record</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="backstory">Backstory</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="timeline">Timeline</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="tfb-briefing">TFB Briefing</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="operation">Operation</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="records">Records</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="morph">Morph</button>
                         </div>
 
-                        <div id="pdf-content" class="text-sm">
-                             <div class="flex border-b border-gray-600 mb-4 flex-wrap">
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white active" data-tab="service-record">Service Record</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="backstory">Backstory</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="timeline">Timeline</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="doc-briefing">DoC Briefing</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="records">Records</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="raisa-addendum">RAISA Addendum</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="abilities">Abilities</button>
-                                <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="morph">Morph</button>
-                            </div>
-
-                            <div id="service-record" class="tab-pane">
-                                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-                                    <div class="md:col-span-3">
-                                        <h3 class="section-title">Biographical & Service Data</h3>
-                                        <div class="info-grid">
-                                            <div class="info-item"><strong>Name:</strong> <span class="highlight-text">Anabella Winters</span></div>
-                                            <div class="info-item"><strong>Current Assignment:</strong> <span class="highlight-text">Acting Director, DoC</span></div>
-                                            <div class="info-item"><strong>Date of Birth:</strong> <span class="highlight-text">May 21, 1981</span></div>
-                                            <div class="info-item"><strong>Security Clearance:</strong> <span class="highlight-text">Level 4</span></div>
-                                            <div class="info-item"><strong>Age:</strong> <span class="highlight-text">44</span></div>
-                                            <div class="info-item"><strong>Date of Recruitment:</strong> <span class="highlight-text">July 17, 2006</span></div>
-                                            <div class="info-item"><strong>Place of Birth:</strong> <span class="highlight-text">Platteville, WI, USA</span></div>
-                                            <div class="info-item"><strong>Parents:</strong> <span class="highlight-text">Jane Winters & Michael Winters</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="md:col-span-2 flex flex-col items-center">
-                                        <div class="border-2 border-gray-500 p-1 mb-4 w-48 h-48">
-                                            <img src="https://github.com/Bapoooossssaaaa/SCPFILE/blob/main/Screenshot%202025-10-16%20211023.png?raw=true" alt="Personnel Portrait" class="w-full h-full object-cover">
+                        <div id="service-record" class="tab-pane">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                <div class="md:col-span-2">
+                                    <h3 class="section-title">Biographical & Service Data</h3>
+                                    <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-yellow-500">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                                            <div class="info-item"><strong class="text-yellow-400">Name:</strong> <span class="highlight-text">Michael Adams</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Current Assignment:</strong> <span class="highlight-text">TF-B [REDACTED]</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Date of Birth:</strong> <span class="highlight-text">February 28, 1991</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Security Clearance:</strong> <span class="highlight-text">ΩALPHA</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Age:</strong> <span class="highlight-text">34</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Date of Recruitment:</strong> <span class="highlight-text">██ / ██ / 2024</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Place of Birth:</strong> <span class="highlight-text">Denver, CO, USA</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Parents:</strong> <span class="highlight-text">Florence Adams & John Adams</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Height:</strong> <span class="highlight-text">6'1" (185 cm)</span></div>
+                                            <div class="info-item"><strong class="text-yellow-400">Weight:</strong> <span class="highlight-text">220 lbs (100 kg)</span></div>
                                         </div>
                                     </div>
                                 </div>
-                                <h3 class="section-title">Career Progression & Commendations</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <h4 class="text-lg text-yellow-400 mb-2">Progression</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li><span class="highlight-text">2006 - 2010:</span> Administrative Intern, Level 1, Site-34</li>
-                                            <li><span class="highlight-text">2010 - 2025:</span> Transferred to DoC. Roles included Analyst, Head Analyst, Supervisor, Operations Director, Assistant Director.</li>
-                                            <li><span class="highlight-text">Present:</span> Acting Director, DoC</li>
-                                        </ul>
+                                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                                    <div class="border-4 border-yellow-500 p-2 mb-4 w-64 h-64 bg-gray-800 shadow-lg">
+                                        <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Personnel%20Portrait.png" alt="Personnel Portrait" class="w-full h-full object-cover">
                                     </div>
-                                    <div>
-                                        <h4 class="text-lg text-yellow-400 mb-2">Notable Accomplishments</h4>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>Mitigated 13 data breaches.</li>
-                                            <li>Authorized/supervised amnestic treatment for 271 individuals.</li>
-                                            <li>Aided in detainment of 79 rogue personnel/GoI members.</li>
-                                            <li>Participated in cover-up operations for Incident IR-4001.</li>
-                                            <li>Commended and recommended for L4 by Director Hansley.</li>
-                                        </ul>
-                                    </div>
+                                    <p class="text-xs text-gray-400 text-center">[ CLEARANCE CONFIRMED ]</p>
                                 </div>
                             </div>
-
-                            <div id="backstory" class="tab-pane hidden">
-                                <h3 class="section-title">Personnel Backstory</h3>
-                                <p class="text-gray-300 leading-relaxed">
-                                    Subject “Anabella Winters,” codenamed <span class="highlight-text">“WINTER,”</span> was born on <span class="highlight-text">May 21, 1981,</span> to Jane and Michael Winters in a middle-class household in Platteville, WI, USA. Growing up in Wisconsin, her parents were stern, trying to keep her as educated as possible. She surpassed her parents' expectations, graduating at or near the top of her class every year. After graduating high school in 1999, she attended <span class="highlight-text">Michigan State University</span>, graduating three years later in 2002 with a Bachelor's in Human Resources, as she enjoyed the thought of management positions. After college, she stayed in Michigan and scored an Administrative Intern position at <span class="highlight-text">Maplewood Primary Care</span>, where she worked from 2002 to 2005 before being laid off after Maplewood went bankrupt.
-                                    <br/><br/>
-                                    Afterward, she experienced major issues with employment despite her best efforts and application crafting, applying to over 20 jobs within a year with no reply. Her 21st application, on <span class="text-yellow-400">July 17, 2006,</span> happened to be to a Foundation front company labeled "Fidelity Management Solutions." A Foundation recruiting official noted her skills were "more than necessary" and flagged her file due to the unusual number of rejections from civilian organizations despite a strong resume and her resilience to continue despite widespread rejection. Thus, she was hired and given a <span class="highlight-text">Level-1 Clearance</span> and an Administrative Intern Position at Foundation <span class="highlight-text">Site-34,</span> where she worked for four years assisting with Foundation Files, personnel onboarding, and documents related to her clearance level.
-                                    <br/><br/>
-                                    In 2010, four years after her service at Site-34’s Administrative Department, she was transferred to the <span class="text-yellow-400">Department of Censorship</span>, a Sub-Department of <span class="text-yellow-400">RAISA</span> at the time, at the request of <span class="highlight-text">Dr. Samuel Hansley,</span> the Sub-Department Director. He made the request after reading over DoC files she had helped with at Site-34. Granted, she would not remember her work, as RAISA wiped her knowledge of said files after she worked on each one to maintain informational security. A RAISA Agent interviewed her after explaining the nature of the work. She was given a "red pill, blue pill" scenario: she could join RAISA, or she could decline, and all her knowledge of the conversation would be wiped. Anabella, being a curious person, accepted the offer and joined the Sub-Department.
-                                    <br/><br/>
-                                    During her 15-year tenure, she mitigated <span class="highlight-text">13 data breaches,</span> authorized/supervised the treatment of <span class="highlight-text">271 individuals</span> with amnestics, aided in the detainment of <span class="highlight-text">79 rogue personnel/GoI members,</span> and participated in the cover-up operations related to <span class="text-red-500">Incident IR-4001,</span> designated <span class="text-red-500 font-bold cursor-pointer hover:underline lethe-trigger">Lethe Protocol</span>, following the loss of an estimated ████████ individuals. Subsequently, she was formally recommended for <span class="highlight-text">Level 4 clearance</span> and promotion to <span class="highlight-text">Acting Director</span> by Director Hansley. This occurred after Director Hansley had to tend to sensitive post-incident affairs at his home site, <span class="highlight-text">Site-08,</span> and couldn't fulfill his directorial position as requested at <span class="highlight-text">Site-45.</span>
-                                </p>
-                            </div>
-                            
-                            <div id="timeline" class="tab-pane hidden">
-                                <h3 class="section-title">Career Timeline</h3>
-                                <div class="relative border-l-2 border-gray-600 pl-6 space-y-6">
-                                    <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
-                                        <p class="font-bold">May 21, 1981</p>
-                                        <p class="text-gray-300">Born in Platteville, Wisconsin.</p>
-                                    </div>
-                                    <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                        <p class="font-bold">2002</p>
-                                        <p class="text-gray-300">Graduates from Michigan State University. Begins internship at Maplewood Primary Care.</p>
-                                    </div>
-                                    <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                        <p class="font-bold">July 17, 2006</p>
-                                        <p class="text-gray-300">Recruited into the Foundation. Assigned as Administrative Intern (L1) at Site-34.</p>
-                                    </div>
-                                    <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                        <p class="font-bold">2010</p>
-                                        <p class="text-gray-300">Transferred to the Department of Censorship at the request of Director Samuel Hansley.</p>
-                                    </div>
-                                     <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-red-500"></div>
-                                        <p class="font-bold">[REDACTED]</p>
-                                        <p class="text-gray-300">Participated in information suppression for Incident IR-4001 (<span class="text-red-500 font-bold cursor-pointer hover:underline lethe-trigger">Lethe Protocol</span>).</p>
-                                    </div>
-                                    <div class="relative">
-                                        <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
-                                        <p class="font-bold">2025</p>
-                                        <p class="text-gray-300">Promoted to Acting Director of the DoC and assigned to Site-45.</p>
-                                    </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-cyan-400">
+                                    <h4 class="text-lg text-yellow-400 mb-3 font-bold">Progression</h4>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li><span class="highlight-text">2009 - 2012:</span> Entered Navy SEAL Recruitment, 2 Deployments in Afghanistan</li>
+                                        <li><span class="highlight-text">2013 - 2020:</span> Invited into DEVGRU, performed clandestine operations in Somalia and Yemen</li>
+                                        <li><span class="highlight-text">2020 - 2022:</span> Promoted to NCO in DEVGRU, involved in Operation █████████-████████</li>
+                                        <li><span class="highlight-text">2022 - Present:</span> Currently Positioned within TF-B</li>
+                                    </ul>
                                 </div>
-                            </div>
-
-                            <div id="doc-briefing" class="tab-pane hidden">
-                                <div class="flex mt-4 items-start">
-                                    <div class="flex-grow">
-                                        <h3 class="section-title">Departmental Briefing: Department of Censorship (DoC)</h3>
-                                        <p><strong>Primary Directive:</strong> The active censorship of sensitive Foundation information from public access and the management of internal information classification.</p>
-                                        <h4 class="text-lg text-yellow-400 mb-2 mt-4">Department History</h4>
-                                        <p class="text-gray-300">In 1973, four years after RAISA’s founding, Director Maria Wesley Jones created the Department of Censorship. It was a sub-department of RAISA, meant to fill out a sector dedicated to censorship. The DoC managed everything from redactions on files, amnestic treatments, and the silent termination of personnel deemed a threat to the Foundation’s secrecy.</p>
-                                        <p class="text-gray-300 mt-2">It was officially determined that RAISA's core mission to archive information was in direct conflict with the DoC's mission to censor it. Therefore, the DoC was granted independence in 2011 to resolve this <span class="glitch-text" id="conflict-of-mandate" data-text="conflict of mandate">conflict of mandate</span>, which was creating bureaucratic inefficiencies in information security.</p>
-                                        <p class="text-gray-300 mt-2">In 2023, 12 years after the Department of Censorship splintered, a reorganization was approved following the retirement of Director Maria Wesley Jones. After a meeting between Director Hansley and the Director of RAISA, it was decided that the DoC's functions were sufficiently similar to RAISA's to warrant its reinstatement. The DoC was formally permitted to operate as an adjacent department, serving in an assistive capacity to RAISA.</p>
-                                    </div>
-                                    <img src="https://github.com/Bapoooossssaaaa/SCPFILE/blob/main/BUREAU%20OF%20(8).png?raw=true" alt="DoC Logo" class="h-24 w-24 ml-6 flex-shrink-0">
+                                <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-yellow-400">
+                                    <h4 class="text-lg text-yellow-400 mb-3 font-bold">Notable Accomplishments</h4>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Racked a total of <span class="text-red-400 font-bold">70 combat kills</span></li>
+                                        <li>Killed a high-valued <span class="highlight-text">Yemeni Al-Qaeda warlord</span></li>
+                                        <li>Achieved the rank of <span class="highlight-text">E-7</span> within DEVGRU</li>
+                                        <li>Involved in the success of Operation <span class="text-red-400">█████████-████████</span></li>
+                                        <li>Nicknamed <span class="text-yellow-400 font-bold">"Dozer"</span> by fellow operatives</li>
+                                    </ul>
                                 </div>
-                            </div>
-
-                             <div id="records" class="tab-pane hidden">
-                                <h3 class="section-title">Pre-Foundation Records</h3>
-                                <div class="legal-doc">
-                                    <div class="text-center mb-8">
-                                        <img src="https://github.com/Bapoooossssaaaa/PERSONNEL-FILE.WINTER/blob/main/MAPLE%20(1).png?raw=true" alt="Maplewood Logo" class="h-28 mx-auto mb-2">
-                                    </div>
-                                    <h5 class="text-xl underline text-center mb-6">Staff Directory</h5>
-                                    <h6 class="text-lg text-center mb-4">Section: A-C (Administration, Clinical Support)</h6>
-                                    <div class="text-lg space-y-2 max-w-md">
-                                        <p>███████, ██████ - ███████████</p>
-                                        <p>█████████, ████ - ███████████████</p>
-                                        <p>████████, ███████ - ███████████████</p>
-                                        <p>███████, ████ - █████████████████</p>
-                                        <p>████████, ███ - █████████████</p>
-                                        <p id="winters-record-trigger" class="cursor-pointer hover:bg-gray-200 p-1">Anabella Winters - Admin. Intern</p>
-                                        <p>█████████, ████████ - ████████████████</p>
-                                        <p>███████, ██████ - ████████████████</p>
-                                        <p>███████, ███████ - █████████████████</p>
-                                        <p>█████████, ████ - ████████████████</p>
-                                        <p>████████, ██████ - ████████████████</p>
-                                        <p>█████████, ██████ - ███████████████</p>
-                                        <p>███████, ███ - █████████</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="raisa-addendum" class="tab-pane hidden">
-                                <div class="mt-4 border-2 border-red-500 p-3">
-                                    <h3 class="text-xl text-red-500 font-bold">RAISA PERSONNEL RECORD ADDENDUM</h3>
-                                    <p><strong>DOCUMENT ID:</strong> 774-WINTERS-PFH / <strong>CLASSIFICATION:</strong> LEVEL 2/WINTERS (Restricted)</p>
-                                    <p class="mt-2"><strong>Period of Interest (2005-2006):</strong> Subject experienced a 12-month period of deep professional disengagement. Over 20 relevant job applications were rejected without substantial cause.</p>
-                                    <p class="mt-2"><strong>Recruitment Analysis:</strong> Application flagged by analysis software; statistical probability of continuous unemployment was improbable. Recruitment officer concluded this period of rejection was due to qualities sought in Foundation candidates.</p>
-                                </div>
-                            </div>
-                            
-                            <div id="abilities" class="tab-pane hidden">
-                                <h3 class="section-title">Authorized Abilities</h3>
-                                <ul class="list-disc list-inside space-y-2">
-                                    <li>Administer Amnestics.</li>
-                                    <li>“Silence” any Personnel, Civilian, or any other affiliation by any means necessary if they pose a risk to Foundation’s Secrecy or Informational Security.</li>
-                                    <li>Conduct Cover-up Operations.</li>
-                                </ul>
-                                <p class="mt-4 border-t border-gray-600 pt-2 text-gray-400">All logs of actions shall be logged in the DoC Database.</p>
-                            </div>
-
-                            <div id="morph" class="tab-pane hidden">
-                                <h3 class="section-title">Appearance & Loadout Configuration (Morph)</h3>
-                                <pre class="bg-gray-800 p-4 whitespace-pre-wrap text-sm"><code>permshirt WaltBo215   90843398768614 7272536264
-permhat WaltBo215 14446812689,14354888567,12994246892,95868078367137,11922435004,16244037376,13207311986
-permntag WaltBo215   &lt;font face="Sarpanch"&gt;Anabella W. &lt;/font&gt;
-permrtag WaltBo215   &lt;font face="Sarpanch"&gt;[ Department of Censorship ] |:| Level - IV Clearance &lt;br /&gt; [Assistant/Acting Director] |:| [[WLOC]]&lt;/font&gt;
-permcntag WaltBo215    92 42 42
-permcrtag WaltBo215   128 53 53
-permmaxhealth WaltBo215   120
-Heal WaltBo215
-startergear WaltBo215  M9,clipboard,authorize,detain,L4
-startergear WaltBo215 medkit black 5</code></pre>
                             </div>
                         </div>
-                    </div>
-                `,
-                default: `
-                    <div class="p-4">
-                        <button id="back-to-files" class="text-yellow-400 interactive-button mb-4">[<-- Back to File Archive]</button>
-                        <h3 class="text-xl text-yellow-300 mb-2">FILE CORRUPTED</h3>
-                        <p class="text-gray-400 mb-2">CLASSIFICATION: LEVEL 4 (SECRET)</p>
-                        <p>----------------------------------------</p>
-                        <p class="mt-2">FILE DATA CORRUPTED OR REDACTED BY O5-COUNCIL DIRECTIVE.</p>
-                        <p class="mt-4">ATTEMPTING TO RETRIEVE FRAGMENTS...</p>
-                        <p class="text-red-500 mt-2">...ACCESS DENIED.</p>
-                        <p class="mt-4">REASON: INSUFFICIENT CLEARANCE.</p>
-                        <p class="mt-2">MEMETIC HAZARD DETECTED IN FRAGMENT 003. PURGING...</p>
-                    </div>
-                `
-            };
-            
-            const fileItems = fileListView.querySelectorAll('.file-list-item');
-            fileItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const fileId = item.dataset.fileId || 'default';
-                    fileListContainer.classList.add('hidden');
-                    fileContentView.classList.remove('hidden');
-                    pendingReviewBar.style.display = 'none';
-                    fileContentView.innerHTML = '';
 
-                    const loading = document.createElement('p');
-                    loading.className = 'p-4';
-                    loading.textContent = `Accessing ${item.textContent}...`;
-                    fileContentView.appendChild(loading);
-
-                    setTimeout(() => {
-                        fileContentView.innerHTML = fileTemplates[fileId];
+                        <div id="backstory" class="tab-pane hidden">
+                            <h3 class="section-title">Personnel Backstory</h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                Subject <span class="highlight-text">"Michael Adams"</span> was born on <span class="highlight-text">the 28th of May 1991</span> to Florence Adams and John Adams in a middle-class household in Denver, CO, USA. Growing up in Colorado, his parents were stern, raising him up to continue the family's farmer lineage. Over the next few years, he was taught how to raise cattle, collect grains, and manage the farm. He wasn't the smartest in his class, scoring average grades all-around, but he was much more mighty athletically. By 14, he was already in the Schools premier football team, and 5'9'' growing to become 6'1'' while also competing with kids 3 years older in the State Championships. He carried his team to continuous victory, an opposing player remarked <span class="text-cyan-300">"He's tough alright, seems like he's been taught farmer's mentality, I can't complain though, he's gonna win."</span> And win they did, securing their place as first within the State Championships.
+                                <br/><br/>
+                                Through all this illustrious success however, lies an untold darkness. His mother started to develop increasingly worrying migraines, and his father just couldn't keep up, so he had to balance all of this while trying to help his father pay for the medicine. In next year's May, everything was starting to brighten, he secured a scholarship to play for a nearby varsity football team, and he started to perform better in academics as well. Yet even so, God continued his test. On one fateful day, an <span class="text-red-400">EF4.3 Tornado</span> swashed through the plains, destroying everything in its path. Unfortunately for him, it was on a straight collision-course to his father's barn.
+                                <br/><br/>
+                                He was out playing football with his friends in the university's campus, when that one fateful notification, that one fateful sound, a message, a message that means everything has changed.
+                                <br/><br/>
+                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <br/><br/>
+                                It's now 2009, one year after the incident.
+                                <br/>
+                                His mental state has deteriorated, his grades are plummeting and with that comes his shape and form. Following his parents' death, he started illegally drinking and eating, his motivation to live felt non-existent.
+                                <br/><br/>
+                                One day, he received a message from his varsity's football team. It reads:
+                            </p>
+                            
+                            <div class="my-4 bg-gray-800 p-4 border-l-4 border-cyan-400 italic">
+                                <p class="text-gray-200">"Dear Michael, I know life has been tough for you son, but you have to move on, you can't keep staying in this condition, you need to let it go, through hardships a man must break through, and I believe you're in that phase.</p>
+                                <p class="text-gray-200 mt-2">I have done whatever I could to keep you in the team, but if you continue to leave matches and our routine practices, I'm forced to kick you out. Son, I know what you feel like now, but whatever it is, God's given you a test, and you have to persevere through it. -Your dear coach"</p>
+                            </div>
+                            
+                            <p class="text-gray-300 leading-relaxed">
+                                At that moment, his tears wanted to burst. He lost his family, and now he's going to lose the only thing that matters to him? He can feel the water drip from his eyes, and then he screamed, he cried and rolled around his bed the entire night.
+                                <br/><br/>
+                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <br/><br/>
+                                A desire, a want to change.
+                                <br/>
+                                For ever since that incident, he felt something inside him. It wasn't hope or belief, at least not yet, but the faint echo of the man he wants to become. The boy who carried a football team on his back. The son who held a farm together when his family needed it.
+                                <br/><br/>
+                                That night, after hours of crying, he bravely stood up, walked to the bathroo, and stared at the reflection looking back at him. He almost gave up again.
+                                <br/>
+                                But he could hear two words go out of his mouth:
+                                <br/><br/>
+                                <span class="text-yellow-400 text-lg font-bold">"No more."</span>
+                                <br/><br/>
+                                Over the next weeks, he forced himself to change. The drinking slowed. The all nighters stopped. He dragged himself out of bed at sunrise and started running again. At first he started with a mile, then two, then four. His body fought back at him, but he pushed back harder.
+                                <br/>
+                                His coach noticed.
+                                <br/>
+                                His professors noticed.
+                                <br/>
+                                Eventually, he noticed.
+                                <br/>
+                                Yet even through all of this, it didn't feel 'right' for him. He wanted something where he could push himself to the hardest, he wanted something where he could show who he truly is. Something where the fight mattered.
+                                <br/>
+                                One fateful evening, after a five mile run, he passed by a Navy recruitment office. The posters in the window showed divers, ships. But he only noticed one, a NAVY Seal emerging from the water, rifle raised, serving his country
+                                <br/>
+                                He stopped.
+                                <br/>
+                                And stares.
+                                <br/>
+                                Then he felt something click.
+                                <br/>
+                                The next morning, he walked inside and enlisted.
+                                <br/><br/>
+                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <br/><br/>
+                                One! Two! Three! Four! … The day of hell has come.
+                                <br/>
+                                He knew becoming a SEAL wasn't easy, definitely not. He's heard from all the documentaries and shows there were and the only word that reverberated through all of them was, "Hell."
+                                <br/>
+                                And now, he was straight in it, BUD/S. For those six grueling months he heard only the shouts and screams from his instructor, yet he persevered, and he fought back the hell that it was.
+                                <br/><br/>
+                                Three years later, he went through hell, the deeper pits of hell, and the even deeper pits of hell again. He participated in two deployments in Afghanistan, where he tallied over 25 confirmed combat kills, one of the highest amongst his regiment.
+                                <br/>
+                                And one day amidst his second deployment during 2013, his senior officer came into his barracks, approached him, and told him to exit the barracks. Initially he felt hesitant, after all he hadn't done anything wrong, and there's only a few reasons a senior officer would come up to you directly.
+                                <br/>
+                                He stood still and the senior officer leaned forward, mumbling something directly next to his ears.
+                                <br/>
+                                He knew what it meant.
+                                <br/>
+                                He then sent an application email, where he then waited and waited for weeks, until a response finally came up right before he slept after a grueling firefight. He was accepted.
+                                <br/>
+                                Six once again grueling months, he went through the Green Team trials and evaluations, utilising every single combat experience he's learnt, and developing some new ones on the go, he managed to rank top of his class.
+                                <br/><br/>
+                                Following his enrollment into DEVGRU, he was re-assigned and deployed in numerous clandestine operations throughout the middle east, including an operation involving the killing of a Yemeni Al-Qaeda warlord during 2017.
+                                <br/>
+                                His favourite weapon was the M250, due to its bulky yet powerful dump, being able to silence entire lines of infantry with just a single magazine, and due to his heavy stature, the big weapon wasn't a hassle to carry.
+                                <br/>
+                                Using this weapon, he mowed down entire opposing infantry entrenchements and suppressed fire for his fellow operatives, leading to him being called <span class="text-yellow-400 font-bold">"Dozer"</span> for his bulky and tanky nature.
+                                <br/><br/>
+                                He continued his highly secretive service up to 2024, where he was allowed leave after an exhausting 7-day training exercise with other Navy regiments. And decided to meet one of his E-Squadron mates he performed an operation alongside with in Britain, where fate has decided another test for him.
+                                <br/><br/>
+                                <span class="text-red-500 font-bold">Operation, Declassified.</span>
+                                <br/>
+                                <span class="text-red-500">Designated: IR-4001 Post-Response Operation</span>
+                                <br/>
+                                <span class="text-red-500 italic">Mortuos Caede, Paraneutrales Occide</span>
+                                <br/><br/>
+                                Michael's records were almost fully wiped out from every United States Military Records following the operation, the only remaining proof of his participation in the Operation lies within the Records page, alongside other agents.
+                                <br/><br/>
+                                He was then re-indoctrinated into the <span class="highlight-text">〈 3-14233 〉 - N'Nono Warrior Crèche - 〈 3-14233 〉</span>
+                            </p>
+                        </div>
                         
-                        document.getElementById('back-to-files').addEventListener('click', () => {
-                            fileContentView.classList.add('hidden');
-                            fileListContainer.classList.remove('hidden');
-                            pendingReviewBar.style.display = 'block';
-                        });
-                        
-                        if (fileId === 'winters') {
-                            const tabButtons = fileContentView.querySelectorAll('.tab-button');
-                            const tabPanes = fileContentView.querySelectorAll('.tab-pane');
-                            tabButtons.forEach(button => {
-                                button.addEventListener('click', () => {
-                                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                                    tabPanes.forEach(pane => pane.classList.add('hidden'));
-                                    button.classList.add('active');
-                                    const tabId = button.dataset.tab;
-                                    fileContentView.querySelector(`#${tabId}`).classList.remove('hidden');
-                                });
-                            });
+                        <div id="timeline" class="tab-pane hidden">
+                            <h3 class="section-title">Career Timeline</h3>
+                            <div class="relative border-l-2 border-gray-600 pl-6 space-y-6">
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
+                                    <p class="font-bold">February 28, 1991</p>
+                                    <p class="text-gray-300">Born in Denver, Colorado.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
+                                    <p class="font-bold">2009 - 2012</p>
+                                    <p class="text-gray-300">Completed BUD/S training. Participated in 2 deployments in Afghanistan with 25+ confirmed kills.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
+                                    <p class="font-bold">2013</p>
+                                    <p class="text-gray-300">Invited into DEVGRU. Completed Green Team trials, ranking top of his class.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
+                                    <p class="font-bold">2013 - 2020</p>
+                                    <p class="text-gray-300">Performed clandestine operations in Somalia and Yemen. Killed high-valued Yemeni Al-Qaeda warlord (2017).</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-green-500"></div>
+                                    <p class="font-bold">2020 - 2022</p>
+                                    <p class="text-gray-300">Promoted to NCO (E-7) within DEVGRU. Involved in Operation █████████-████████.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-red-500"></div>
+                                    <p class="font-bold">2024</p>
+                                    <p class="text-gray-300">Participated in IR-4001 Post-Response Operation. Records wiped from military databases.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
+                                    <p class="font-bold">2024 - Present</p>
+                                    <p class="text-gray-300">Re-indoctrinated into UIU Task Force Blade. Assigned to N'Nono Warrior Crèche.</p>
+                                </div>
+                            </div>
+                        </div>
 
-                            document.getElementById('download-pdf').addEventListener('click', () => {
-                                const originalContent = document.getElementById('pdf-content');
-                                const contentToPrint = document.createElement('div');
+                        <div id="tfb-briefing" class="tab-pane hidden">
+                            <div class="flex mt-4 items-start">
+                                <div class="flex-grow">
+                                    <h3 class="section-title">Task Force Briefing: Task Force Blade (TF-B)</h3>
+                                    <p><strong>Primary Directive:</strong> Protective detail for UIU directorate and VIPs, hostage rescue, and emergency recontainment operations.</p>
+                                    <h4 class="text-lg text-yellow-400 mb-2 mt-4">Task Force History</h4>
+                                    <p class="text-gray-300">Following the events of IR-4001, a significant amount of infrastructure, records, and personnel within government agencies perished. This spurred the United States Government to issue an executive order to restructure their anomalous agencies especially. The previously severely underfunded Unusual Incidents Unit benefitted from gaining equipment and volunteers sent by the Central Intelligence Agency, allowing for the creation of new specialized divisions within the FBIUIU:</p>
+                                    <p class="text-gray-300 mt-2"><span class="highlight-text">Task Force "Blade"</span> is the UIU's guarding and MP task force. They provide security to UIU's directorate and VIPs, such as American executives when they visit our areas of operations.</p>
+                                    <h4 class="text-lg text-yellow-400 mb-2 mt-4">N'Nono Warrior Crèche 〈 3-14233 〉</h4>
+                                    <p class="text-gray-300">N'Nono Warrior Crèche is Blade's dedicated frontline recontainment element, specializing in combating SCP-class anomalies, emergency recontainment, and protection of High Command and critical assets during breach events and interviews. Each N'Nono element is operated by one Captain and one Field Officer, who share responsibility for mission command, rules-of-engagement decisions, and the controlled handoff to specialist or long-term containment teams.</p>
+                                    <p class="text-gray-300 mt-2"><strong>Composition:</strong> A relatively large team, composed of those who're just joining Blade and those who wish to remain as the 'RCU' for Blade.</p>
+                                    <p class="text-gray-300 mt-2"><strong>Assignment:</strong> Automatically placed into N'Nono upon arrival into Blade.</p>
+                                    <p class="text-gray-300 mt-2"><strong>Equipment:</strong> Due to his massive stature and size, Michael Adams was allocated with TFB's own heavy weaponry including an XM250.</p>
+                                </div>
+                                <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/BUREAU%20OF%20(8).png" alt="TFB Logo" class="h-24 w-24 ml-6 flex-shrink-0">
+                            </div>
+                        </div>
 
-                                const mainTitle = document.createElement('h1');
-                                mainTitle.textContent = "PERSONNEL FILE: WINTERS, ANABELLA";
-                                mainTitle.style.fontSize = '24px';
-                                mainTitle.style.fontWeight = 'bold';
-                                mainTitle.style.marginBottom = '20px';
-                                contentToPrint.appendChild(mainTitle);
+                         <div id="operation" class="tab-pane hidden">
+                            <div class="text-center mb-4">
+                                <h2 class="text-2xl text-yellow-300 mb-2">Lore Operation, Declassified.</h2>
+                                <p class="text-red-500 font-bold text-xl">Mortuos Caede, Paraneutrales Occide</p>
+                            </div>
+                            
+                            <div class="text-sm text-gray-300 space-y-3">
+                                <div class="bg-gray-800 p-3 border-l-4 border-red-500">
+                                    <p><strong>From:</strong> ███. █████████████████</p>
+                                    <p><strong>To:</strong> POTUS and the Director of FBI.</p>
+                                    <p><strong>Subject:</strong> Operation █████████-████████</p>
+                                    <p><strong>Classification:</strong> <span class="text-red-400">TS/SCI</span>, Protected under the 18 U.S. Code § 798. Eyes only</p>
+                                    <p><strong>Date:</strong> ██-██-████</p>
+                                </div>
 
-                                const tabButtons = originalContent.querySelectorAll('.tab-button');
-                                tabButtons.forEach(button => {
-                                    const tabId = button.dataset.tab;
-                                    const tabPaneClone = originalContent.querySelector(`#${tabId}`).cloneNode(true);
-                                    
-                                    tabPaneClone.classList.remove('hidden');
-                                    
-                                    const sectionTitle = document.createElement('h2');
-                                    sectionTitle.textContent = button.textContent;
-                                    sectionTitle.style.fontSize = '18px';
-                                    sectionTitle.style.fontWeight = 'bold';
-                                    sectionTitle.style.marginTop = '30px';
-                                    sectionTitle.style.marginBottom = '15px';
-                                    sectionTitle.style.borderBottom = '1px solid #ccc';
-                                    sectionTitle.style.paddingBottom = '5px';
-                                    sectionTitle.style.pageBreakBefore = 'always';
+                                <h3 class="section-title">1) Briefing and Overview</h3>
+                                <p>Operation Illuminati Confirmed is a coordinated operation between the Unusual Incidents Unit's Task Force Blade (BLADE) and the U.S. Department of the ██████ and ████████████ ████████ (█████) and the British Occult Service, Under Her Majesty's Department of Arcane Affairs. The mission's primary objective is the neutralization or capture of an occult threat nicknamed "The ██████," currently resurrecting Illuminati-inspired esoteric CAN.</p>
 
-                                    contentToPrint.appendChild(sectionTitle);
-                                    contentToPrint.appendChild(tabPaneClone);
-                                });
+                                <h3 class="section-title">2) Rules of Engagement</h3>
+                                <div class="ml-4 space-y-2">
+                                    <p><strong class="text-yellow-400">Use of Force:</strong> Lethal or non‑lethal depending on threat level.</p>
+                                    <p><strong class="text-yellow-400">Civilian Shielding:</strong> Agents are ordered to avoid civilian interaction.</p>
+                                </div>
 
-                                const printWrapper = document.createElement('div');
-                                printWrapper.id = "pdf-content-clone";
-                                printWrapper.style.backgroundColor = 'white';
-                                printWrapper.style.color = 'black';
-                                printWrapper.style.width = '1200px';
-                                printWrapper.style.padding = '40px';
-                                printWrapper.style.fontFamily = "'Courier New', Courier, monospace";
+                                <h3 class="section-title">3) Timeline & Status</h3>
+                                <div class="ml-4 space-y-2">
+                                    <p><strong class="text-yellow-400">Execution Window:</strong> July ██-████, ██.30</p>
+                                    <p><strong class="text-yellow-400">Current Positioning:</strong></p>
+                                    <div class="ml-4">
+                                        <p>→ Assets: Strike Team "██████"</p>
+                                        <p>→ ETA to LZ if authorized, 16 Hours.</p>
+                                    </div>
+                                    <p><strong class="text-yellow-400">Pre-Op Checkpoint:</strong> July 14, morning final Intel review at the ████████ HQ.</p>
+                                </div>
 
-                                contentToPrint.querySelectorAll('*').forEach(el => { el.style.color = 'black'; });
-                                contentToPrint.querySelectorAll('.highlight-text').forEach(el => el.style.color = '#333');
-                                contentToPrint.querySelectorAll('.bg-gray-800, .bg-gray-700').forEach(el => {
-                                    el.style.backgroundColor = '#f0f0f0';
-                                    el.style.border = '1px solid #ddd';
-                                });
-                                contentToPrint.querySelectorAll('[class*="border-"]').forEach(el => el.style.borderColor = '#ccc');
-                                contentToPrint.querySelector('pre')?.style.setProperty('background-color', '#eef', 'important');
+                                <h3 class="section-title">4) Presidential Directives</h3>
+                                <div class="ml-4 space-y-2">
+                                    <p>[ ] Authorization for lethal force if warranted</p>
+                                    <p>[ ] Approval of full USDMS, UIU budget allocation</p>
+                                    <p>[ ] Authorization to terminate any anomalies</p>
+                                    <p>[ ] The rescue of entrapped US and British Operatives facing the anomaly</p>
+                                </div>
 
-                                printWrapper.appendChild(contentToPrint);
-                                printWrapper.style.position = 'absolute';
-                                printWrapper.style.left = '-9999px';
-                                document.body.appendChild(printWrapper);
+                                <div class="mt-6 bg-gray-800 p-4 border-t-2 border-gray-600">
+                                    <p class="mb-2"><strong>Prepared by:</strong></p>
+                                    <p>███. ████████████████</p>
+                                    <p class="text-cyan-300">The United States Department of the Occult and Metaphysical Sciences.</p>
+                                    <p class="mt-4 text-sm">Under authority of</p>
+                                    <p class="text-cyan-300">U.S. Department of the ██████ and ████████████ ████████</p>
+                                    <p class="text-center my-2">&</p>
+                                    <p class="text-cyan-300">Her Majesty's Department of Arcane Affairs.</p>
+                                </div>
 
-                                html2canvas(printWrapper, { scale: 2 }).then(canvas => {
-                                    document.body.removeChild(printWrapper);
-                                    const imgData = canvas.toDataURL('image/png');
-                                    const pdf = new jsPDF('p', 'mm', 'a4');
-                                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                                    const pdfHeight = pdf.internal.pageSize.getHeight();
-                                    const canvasWidth = canvas.width;
-                                    const canvasHeight = canvas.height;
-                                    const ratio = canvasWidth / pdfWidth;
-                                    const imgHeight = canvasHeight / ratio;
-                                    let heightLeft = imgHeight;
-                                    let position = 0;
+                                <div class="mt-6 text-center border-2 border-yellow-500 p-4 bg-yellow-900">
+                                    <p class="text-yellow-300 mb-3">⬥ For your eyes only. ⬥</p>
+                                    <p class="mb-2"><strong>Sign here:</strong></p>
+                                    <p class="mb-1">___________________________, President of the United States</p>
+                                    <p>___________________________, Director of the FBI</p>
+                                </div>
 
-                                    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                                    heightLeft -= pdfHeight;
+                                <p class="text-center mt-4 text-red-500 font-bold text-xl">Mortuos Caede, Paraneutrales Occide</p>
+                                
+                                <div class="mt-6 bg-red-900 border-2 border-red-500 p-4">
+                                    <p class="text-red-200"><strong>POST-OPERATION NOTE:</strong></p>
+                                    <p class="text-red-200 mt-2">Michael Adams' records were almost fully wiped out from every United States Military Records following the operation. The only remaining proof of his participation in the Operation lies within the Records page, alongside other agents.</p>
+                                </div>
+                                
+                                <div class="mt-4 text-xs text-gray-500 italic text-center">
+                                    <p>Note: Most information in this document is classified. Full access requires UIU server clearance.</p>
+                                </div>
+                            </div>
+                        </div>
 
-                                    while (heightLeft >= 0) {
-                                      position = -heightLeft;
-                                      pdf.addPage();
-                                      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                                      heightLeft -= pdfHeight;
-                                    }
-                                    pdf.save("Personnel_File_Winters_Anabella.pdf");
-                                });
-                            });
+                         <div id="records" class="tab-pane hidden">
+                            <h3 class="section-title">Pre-UIU Records</h3>
+                            <div class="legal-doc">
+                                <div class="text-center mb-8">
+                                    <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/UIU.png" alt="UIU Logo" class="h-40 mx-auto mb-2">
+                                </div>
+                                <h5 class="text-xl underline text-center mb-6">Operation █████████-████████ Personnel Roster</h5>
+                                <h6 class="text-lg text-center mb-4">Partial Extract - IR-4001 Post-Response</h6>
+                                <div class="text-lg space-y-2 max-w-md">
+                                    <p>███████, ██████ - ███████████</p>
+                                    <p>█████████, ████ - ███████████████</p>
+                                    <p>████████, ███████ - ███████████████</p>
+                                    <p>███████, ████ - █████████████████</p>
+                                    <p>████████, ███ - █████████████</p>
+                                    <p id="adams-record-trigger" class="cursor-pointer hover:bg-gray-200 p-1">Michael Adams - DEVGRU NCO E-7</p>
+                                    <p>█████████, ████████ - ████████████████</p>
+                                    <p>███████, ██████ - ████████████████</p>
+                                    <p>███████, ███████ - █████████████████</p>
+                                    <p>█████████, ████ - ████████████████</p>
+                                    <p>████████, ██████ - ████████████████</p>
+                                    <p>█████████, ██████ - ███████████████</p>
+                                    <p>███████, ███ - █████████</p>
+                                </div>
+                                <div class="mt-6 p-4 bg-red-100 border-2 border-red-500">
+                                    <p class="text-red-900 font-bold">CLASSIFICATION NOTICE</p>
+                                    <p class="text-red-900 mt-2">This roster has been extracted from classified military archives. All personnel listed participated in Operation █████████-████████. Following completion, records were expunged from standard military databases per Executive Order ████-█.</p>
+                                </div>
+                            </div>
+                        </div>
 
-                             document.getElementById('conflict-of-mandate').addEventListener('click', startCognitoHazardSequence);
-                             document.querySelectorAll('.lethe-trigger').forEach(el => el.addEventListener('click', showLetheProtocol));
-                             document.getElementById('winters-record-trigger').addEventListener('click', showWintersRecord);
-                        }
-                    }, 1000);
+                        <div id="morph" class="tab-pane hidden">
+                            <h3 class="section-title">Appearance & Loadout Configuration (Morph)</h3>
+                            <pre class="bg-gray-800 p-4 whitespace-pre-wrap text-sm"><code>permshirt [USERNAME]   [SHIRT_ID]
+permhat [USERNAME] [HAT_IDS]
+permntag [USERNAME]   &lt;font face="Sarpanch"&gt;Michael A. &lt;/font&gt;
+permrtag [USERNAME]   &lt;font face="Sarpanch"&gt;[ Task Force Blade ] |:| ΩALPHA Clearance &lt;br /&gt; [N'Nono Warrior Crèche] |:| [[WLOC]]&lt;/font&gt;
+permcntag [USERNAME]    92 42 42
+permcrtag [USERNAME]   128 53 53
+permmaxhealth [USERNAME]   150
+Heal [USERNAME]
+startergear [USERNAME]  XM250,vest_tfb,authorize,detain,comms
+startergear [USERNAME] medkit black 5</code></pre>
+                            <p class="text-gray-400 text-sm mt-4">Note: Due to operative's heavy weapons specialist role and enhanced physical conditioning, maximum health has been increased to 150. Standard UIU loadout modified to include XM250 light machine gun.</p>
+                        </div>
+                    </div>
+                `;
+
+                const tabButtons = personnelFileScreen.querySelectorAll('.tab-button');
+                const tabPanes = personnelFileScreen.querySelectorAll('.tab-pane');
+                
+                tabPanes.forEach(pane => {
+                    if (pane.id !== 'service-record') {
+                        pane.classList.add('hidden');
+                    }
                 });
-            });
+                
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabPanes.forEach(pane => pane.classList.add('hidden'));
+                        button.classList.add('active');
+                        const tabId = button.dataset.tab;
+                        const targetPane = personnelFileScreen.querySelector(`#${tabId}`);
+                        if (targetPane) {
+                            targetPane.classList.remove('hidden');
+                        }
+                    });
+                });
 
-            function showLetheProtocol() {
+                document.getElementById('download-pdf').addEventListener('click', () => {
+                    const originalContent = document.getElementById('pdf-content');
+                    const contentToPrint = document.createElement('div');
+
+                    const mainTitle = document.createElement('h1');
+                    mainTitle.textContent = "PERSONNEL FILE: ADAMS, MICHAEL";
+                    mainTitle.style.fontSize = '24px';
+                    mainTitle.style.fontWeight = 'bold';
+                    mainTitle.style.marginBottom = '20px';
+                    contentToPrint.appendChild(mainTitle);
+
+                    const tabButtons = originalContent.querySelectorAll('.tab-button');
+                    tabButtons.forEach(button => {
+                        const tabId = button.dataset.tab;
+                        const tabPaneClone = originalContent.querySelector(`#${tabId}`).cloneNode(true);
+                        
+                        tabPaneClone.classList.remove('hidden');
+                        
+                        const sectionTitle = document.createElement('h2');
+                        sectionTitle.textContent = button.textContent;
+                        sectionTitle.style.fontSize = '18px';
+                        sectionTitle.style.fontWeight = 'bold';
+                        sectionTitle.style.marginTop = '30px';
+                        sectionTitle.style.marginBottom = '15px';
+                        sectionTitle.style.borderBottom = '1px solid #ccc';
+                        sectionTitle.style.paddingBottom = '5px';
+                        sectionTitle.style.pageBreakBefore = 'always';
+
+                        contentToPrint.appendChild(sectionTitle);
+                        contentToPrint.appendChild(tabPaneClone);
+                    });
+
+                    const printWrapper = document.createElement('div');
+                    printWrapper.id = "pdf-content-clone";
+                    printWrapper.style.backgroundColor = 'white';
+                    printWrapper.style.color = 'black';
+                    printWrapper.style.width = '1200px';
+                    printWrapper.style.padding = '40px';
+                    printWrapper.style.fontFamily = "'Courier New', Courier, monospace";
+
+                    contentToPrint.querySelectorAll('*').forEach(el => { el.style.color = 'black'; });
+                    contentToPrint.querySelectorAll('.highlight-text').forEach(el => el.style.color = '#333');
+                    contentToPrint.querySelectorAll('.bg-gray-800, .bg-gray-700').forEach(el => {
+                        el.style.backgroundColor = '#f0f0f0';
+                        el.style.border = '1px solid #ddd';
+                    });
+                    contentToPrint.querySelectorAll('[class*="border-"]').forEach(el => el.style.borderColor = '#ccc');
+                    contentToPrint.querySelector('pre')?.style.setProperty('background-color', '#eef', 'important');
+
+                    printWrapper.appendChild(contentToPrint);
+                    printWrapper.style.position = 'absolute';
+                    printWrapper.style.left = '-9999px';
+                    document.body.appendChild(printWrapper);
+
+                    html2canvas(printWrapper, { scale: 2 }).then(canvas => {
+                        document.body.removeChild(printWrapper);
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF('p', 'mm', 'a4');
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = pdf.internal.pageSize.getHeight();
+                        const canvasWidth = canvas.width;
+                        const canvasHeight = canvas.height;
+                        const ratio = canvasWidth / pdfWidth;
+                        const imgHeight = canvasHeight / ratio;
+                        let heightLeft = imgHeight;
+                        let position = 0;
+
+                        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                        heightLeft -= pdfHeight;
+
+                        while (heightLeft >= 0) {
+                            position = -heightLeft;
+                            pdf.addPage();
+                            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                            heightLeft -= pdfHeight;
+                        }
+                        pdf.save("Personnel_File_Adams_Michael.pdf");
+                    });
+                });
+
+                document.getElementById('adams-record-trigger').addEventListener('click', showAdamsRecord);
+            }
+
+            function showAdamsRecord() {
                 const content = `
-                    <h2 class="text-2xl text-yellow-300 mb-4">Lethe Protocol</h2>
-                    <p class="text-gray-400 mb-4">Transcript of O5 Command Broadcast to all personnel at Site-08, DoC's Home Site.</p>
-                    <div class="text-left space-y-3">
-                       <p>IR-4001 has resulted in the loss of 65% of the world's global population, marking the SCP Foundation's failure to protect humanity for the first time in history. Due to the nature of SCP-4001, people will not remember those lives lost.</p>
-                       <p>To prevent a global panic resulting from this tragic and unforeseen event, the Foundation enacts Lethe Protocol on humanity. This will make them forget the Foundation so that we may continue our work after this crisis has been contained. We will construct quarantine zones to manage the following events to come from the unstaffed sites.</p>
-                       <p>This has been approved by the Administrator themself. This protocol will allow the survivors of humanity and us to continue living in a state of normalcy, completely unaware of the tragedy that occurred or the people who were lost.</p>
+                    <div class="bg-white text-black p-4" style="font-family: 'Courier New', monospace; font-size: 14px;">
+                        <pre class="whitespace-pre-wrap">
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// UIU CLASSIFIED PERSONNEL EXTRACT
+// ACCESS... OPERATION_ARCHIVE_DB
+// FILE_ID: OP-IR4001-PR-ADAMS
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+== PERSONAL INFORMATION ==
+OPERATIVE ID:     DEVGRU-E7-ADAMS
+NAME:             Adams, Michael
+DOB:              02/28/1991
+RANK:             E-7 (Chief Petty Officer)
+UNIT:             DEVGRU / SEAL Team Six
+NICKNAME:         "Dozer"
+
+== OPERATIONAL DETAILS ==
+OPERATION:        █████████-████████
+CLASSIFICATION:   TS/SCI - EYES ONLY
+DATE:             ██/██/2024
+LOCATION:         [REDACTED], United Kingdom
+OBJECTIVE:        Neutralization of anomalous threat "The ██████"
+STATUS:           OPERATION COMPLETED
+
+== PARTICIPANT ROLE ==
+POSITION:         Heavy Weapons Specialist
+PRIMARY WEAPON:   M250 Light Machine Gun
+ROLE:             Suppression & Infantry Support
+OUTCOME:          Survived. Records expunged per EO ████-█.
+
+== POST-OPERATION DISPOSITION ==
+Following Operation █████████-████████, subject was transferred to:
+    → UIU Task Force Blade
+    → Assignment: N'Nono Warrior Crèche 〈 3-14233 〉
+    → Clearance: ΩALPHA
+    → All DEVGRU records archived and sealed.
+
+== SYSTEM NOTES ==
+> ██/██/2024: Operation completed. Casualty report classified.
+> ██/██/2024: Personnel transfer to UIU authorized.
+> ██/██/2024: Military service records expunged per executive order.
+> ██/██/2024: Subject re-indoctrinated into anomalous operations.
+
+[END OF EXTRACT]
+                        </pre>
                     </div>
                 `;
                 showModal(content);
             }
 
-            function showWintersRecord() {
-                 const content = `
-                    <div class="bg-white text-black p-4" style="font-family: 'Courier New', monospace; font-size: 14px;">
-                        <pre class="whitespace-pre-wrap">
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// MAPLEWOOD PRIMARY CARE - EMPLOYEE RECORD (ARCHIVED)
-// ACCESS... HR_DB_ARCHIVE
-// FILE_ID: 88102B
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-== PERSONAL INFORMATION ==
-EMPLOYEE ID:      88102B
-NAME:             Winters, Anabella
-ADDRESS:          [DATA CORRUPTED] Lansing, MI, 48912
-TELEPHONE:        [DATA CORRUPTED]
-DOB:              05/21/1981
-SSN:              ███-██-████
-EMERG_CONTACT:    Winters, Michael & Jane (Relation: Parent)
-EMERG_PHONE:      ███-███-████ (Platteville, WI)
-
-== EMPLOYMENT DETAILS ==
-POSITION_TITLE:   Administrative Intern
-DEPARTMENT:       Administration
-STATUS:           Intern (Full-Time)
-HIRE_DATE:        06/10/2002
-TERM_DATE:        03/15/2005
-REASON_SEP:       Involuntary Layoff (Facility Closure / Bankruptcy)
-SUPERVISOR:       [DATA CORRUPTED]
-
-== EDUCATION & QUALIFICATIONS ==
-ON_FILE:          B.S. Human Resources
-INSTITUTION:      Michigan State University
-GRAD_YEAR:        2002
-
-== SYSTEM NOTES ==
-> 02/01/2005: Pay-period error reported. Corrected by A.W.
-> 03/15/2005: All staff accounts locked. Separation processed.
-> 03/20/2005: [SYSTEM] Database set to Read-Only.
-                        </pre>
-                    </div>
-                 `;
-                 showModal(content);
-            }
-
-            function startCognitoHazardSequence() {
-                cognitohazardSequence.innerHTML = `
-                    <p class="text-3xl text-red-500 font-bold mb-4">WARNING</p>
-                    <p class="text-xl mb-8">THIS FILE IS A COGNITOHAZARD DESIGNATED COG-09121ARG. PROCEEDING CAN RESULT IN DEATH.</p>
-                    <p class="text-2xl mb-4">PROCEED?</p>
-                    <div class="flex gap-8 text-2xl">
-                        <button id="cognito-proceed-y" class="text-green-500 border border-green-500 px-6 py-2 interactive-button hover:bg-green-500 hover:text-black">Y</button>
-                        <button id="cognito-proceed-n" class="text-red-500 border border-red-500 px-6 py-2 interactive-button hover:bg-red-500 hover:text-black">N</button>
-                    </div>
-                `;
-                cognitohazardSequence.classList.remove('hidden');
-
-                document.getElementById('cognito-proceed-y').onclick = showClearanceCodeEntry;
-                document.getElementById('cognito-proceed-n').onclick = endCognitoHazardSequence;
-            }
-
-            function showClearanceCodeEntry() {
-                const correctCode = [0, 7, 1, 9];
-                cognitohazardSequence.innerHTML = `
-                    <div class="flex flex-col items-center">
-                        <p class="text-2xl mb-4">CLEARANCE CODE</p>
-                        <div id="code-entry-container" class="flex items-center justify-center space-x-2 md:space-x-4">
-                            ${[0,1,2,3].map(i => `
-                            <div class="digit-container">
-                                <button class="arrow-button" data-index="${i}" data-dir="up">▲</button>
-                                <div class="digit-box" data-index="${i}" data-value="0">0</div>
-                                <button class="arrow-button" data-index="${i}" data-dir="down">▼</button>
-                            </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-
-                const digitBoxes = cognitohazardSequence.querySelectorAll('.digit-box');
-                let enteredCode = [0,0,0,0];
-
-                function checkCode() {
-                    const isCorrect = enteredCode.every((digit, i) => digit === correctCode[i]);
-                    const enterButton = document.getElementById('cognito-enter-button');
-                    
-                    if (isCorrect) {
-                        if (!enterButton) {
-                            const newEnterButton = document.createElement('button');
-                            newEnterButton.id = 'cognito-enter-button';
-                            newEnterButton.textContent = '[ ENTER ]';
-                            newEnterButton.className = 'mt-8 text-2xl text-green-500 border border-green-500 px-6 py-2 interactive-button hover:bg-green-500 hover:text-black';
-                            newEnterButton.onclick = showSite07Text;
-                            cognitohazardSequence.querySelector('.digit-container').parentNode.parentNode.appendChild(newEnterButton);
-                        }
-                    } else {
-                        if (enterButton) {
-                            enterButton.remove();
-                        }
-                    }
-                }
-
-                cognitohazardSequence.querySelectorAll('.arrow-button').forEach(button => {
-                    button.onclick = () => {
-                        const index = parseInt(button.dataset.index);
-                        const dir = button.dataset.dir;
-                        let value = enteredCode[index];
-                        if(dir === 'up') value = (value + 1) % 10;
-                        else value = (value - 1 + 10) % 10;
-                        
-                        enteredCode[index] = value;
-                        digitBoxes[index].textContent = value;
-                        
-                        if (value === correctCode[index]) {
-                           digitBoxes[index].classList.add('bg-green-700', 'border-green-400');
-                        } else {
-                           digitBoxes[index].classList.remove('bg-green-700', 'border-green-400');
-                        }
-                        checkCode();
-                    };
-                });
-            }
-
-            function showSite07Text() {
-                cognitohazardSequence.innerHTML = `
-                    <div id="site07-text" class="text-2xl opacity-0">
-                        <p>Site - 07’s Secure Terminal, Buried beneath an abandoned section of <span id="site07-highlight">Site-07</span>...</p>
-                    </div>
-                `;
-                const site07Text = document.getElementById('site07-text');
-                site07Text.classList.add('fade-in');
-                setTimeout(() => {
-                    const highlight = document.getElementById('site07-highlight');
-                    highlight.style.color = '#f6e05e';
-                    highlight.style.textDecoration = 'underline';
-                    highlight.style.cursor = 'pointer';
-                    highlight.classList.add('interactive-button');
-                    highlight.onclick = showLog;
-                }, 2000);
-            }
-
-            function showLog() {
-                const log = [
-                    { speaker: 'J', line: "Evening, Hansley. You look stressed. I take it this isn’t a social visit?" },
-                    { speaker: 'H', line: "Cut the pleasantries, Maria. It is not. I’m tired of you sending your 'auditors' from Omega-43 ((RAISA's Personal Task Force)) to my office to dismantle my department piece by piece. They are telling my people we're being defunded. Every. Single. Day. You're bleeding us dry and I want to know why." },
-                    { speaker: 'J', line: "Hansley, you know the situation. The Foundation's budget was slashed after the US Government shut down. They stopped paying their dues. We are all feeling the pinch. Belts have to be tightened." },
-                    { speaker: 'H', line: "Don't feed me that official line. I've seen RAISA's full budget. You have enough discretionary funding to keep us operational ten times over without breaking a sweat. You are choosing to cut us off. I sense you are taking this as a personal matter." },
-                    { speaker: 'J', line: "Personal? I don't know what you mean. Oh. I see. This is about Emily." },
-                    { speaker: 'H', line: "Isn't it? You've been gunning for my department ever since." },
-                    { speaker: 'J', line: "She did not have to be terminated. She wasn't a hazard. She was just scared." },
-                    { speaker: 'H', line: "She was a liability with half of RAISA's active personnel files in her hand, ready to sell to the highest bidder. She was compromised. I had to do something. It was your protocol, Maria. Section 4, Sub-clause 12. Information Breach by Level 4 Personnel." },
-                    { speaker: 'J', line: "She was my sister, Hansley! TO HELL WITH PROTOCOL! I gave you a direct, verbal order to stand down, to let me handle it. And you ignored it. You put a bullet in her head without a second thought. I don't give a single damn about protocol! I could have brought her in." },
-                    { speaker: 'H', line: "No, you couldn't have. She was out of your control and your judgment was compromised. You think I didn’t try to reason with her? She was already gone. I'm sorry, Maria, truly. But my allegiance is to the Foundation and its security, not to your family." },
-                    { speaker: 'J', line: "[A long silence. Her voice is cold when she speaks again.] Ugh. Look. It doesn't matter now. What's done is done. The reports are filed. The funds have been re-allocated." },
-                    { speaker: 'H', line: "So un-allocate them. Fix this." },
-                    { speaker: 'J', line: "I can't. If I suddenly start funding a division I've spent three months publicly gutting, and Overwatch Command finds out it was a personal vendetta... I’ll be fired. Or worse. My hands are tied." },
-                    { speaker: 'H', line: "Right. So you trap us both. Fine. If you can't fund us, we'll find someone who can. I suggest we part ways." },
-                    { speaker: 'J', line: "What are you proposing?" },
-                    { speaker: 'H', line: "A formal separation. The Department of Censorship and I will split off from RAISA. We'll become our own independent Foundation department. I'll take my case directly to the Council for our own budget. Hopefully, they'll see the value in our work and return our funding." },
-                    { speaker: 'J', line: "[Another pause, processing the solution.] You'll get your funding. And I'll be rid of you. It's clean." },
-                    { speaker: 'H', line: "It is. But this log, the real reason for the split. It can't get out." },
-                    { speaker: 'J', line: "Agreed. Keep my name out of the public record. This log, this conversation... it stays here. Buried in Site-07's Deep Log. Understood?" },
-                    { speaker: 'H', line: "Deal. I'll have the official reason for the schism, 'bureaucratic streamlining' or some other excuse, stricken from the public Foundation records. Good riddance, Maria." },
-                    { speaker: 'J', line: "Good riddance, Hansley." },
-                ];
-                cognitohazardSequence.innerHTML = `
-                    <div class="w-full max-w-4xl h-full flex flex-col">
-                        <div class="text-yellow-400 p-2 border-b-2 border-yellow-400 text-center">SECURE-TERM-S07-?? RECORDED LOG</div>
-                        <div id="log-display" class="flex-grow text-left space-y-4 overflow-y-auto p-4 border border-t-0 border-gray-700"></div>
-                    </div>
-                `;
-                const logDisplay = document.getElementById('log-display');
-                let i = 0;
-
-                function displayNextLogLine() {
-                    if (i < log.length) {
-                        const entry = log[i];
-                        const p = document.createElement('p');
-                        const speakerColor = entry.speaker === 'J' ? 'text-red-700' : 'text-red-400';
-                        p.innerHTML = `<span class="${speakerColor} font-bold">[${entry.speaker}]:</span> ${entry.line}`;
-                        p.className = "opacity-0";
-                        logDisplay.appendChild(p);
-                        p.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                        p.classList.add('fade-in');
-                        i++;
-                        setTimeout(displayNextLogLine, 4000);
-                    } else {
-                        const end = document.createElement('p');
-                        end.textContent = "[END OF LOG]";
-                        end.className = "text-center text-yellow-400 mt-8";
-                        logDisplay.appendChild(end);
-                        
-                        const exitButton = document.createElement('button');
-                        exitButton.textContent = '[ EXIT LOG ]';
-                        exitButton.className = 'block mx-auto mt-8 text-2xl text-red-500 border border-red-500 px-6 py-2 interactive-button hover:bg-red-500 hover:text-black';
-                        exitButton.onclick = endCognitoHazardSequence;
-                        logDisplay.appendChild(exitButton);
-                        logDisplay.scrollTop = logDisplay.scrollHeight;
-
-                    }
-                }
-                displayNextLogLine();
-            }
-
-            function endCognitoHazardSequence() {
-                cognitohazardSequence.classList.add('hidden');
-                cognitohazardSequence.innerHTML = '';
-            }
-            
             function startRemoteAccessSequence() {
                 let progress = 0;
                 const interval = setInterval(() => {
@@ -923,7 +803,22 @@ GRAD_YEAR:        2002
 
             function startBiosSequence() {
                 const lines = [
-                    "SCiPNET BIOS v4.5.2", "Copyright (c) 1982-2025, SCiPNet Consolidated.", " ", "Main Processor: 2x Foundation-grade Quantum Entanglement Core @ 8.2 THz", "Memory Testing: 1024 ZB OK", " ", "Initializing RAISA Secure Handshake Protocol...", "Checking NVRAM...", "Detecting Primary Master... SCP-DB-OMEGA", "Detecting Primary Slave... None", "Detecting Secondary Master... REDACTED", "Detecting Secondary Slave... None", " ", "Cognitohazard Filters Engaged.", "Memetic Kill Agent Shielding Active.", "Loading RAISA OS from Secure Sector...",
+                    "USOCNET BIOS v4.5.2", 
+                    "Copyright (c) 1982-2025, USOCNET Consolidated.", 
+                    " ", 
+                    "Main Processor: 2x Foundation-grade Quantum Entanglement Core @ 8.2 THz", 
+                    "Memory Testing: 1024 ZB OK", 
+                    " ", 
+                    "Initializing UIU Secure Handshake Protocol...", 
+                    "Checking NVRAM...", 
+                    "Detecting Primary Master... UIU-DB-OMEGA", 
+                    "Detecting Primary Slave... None", 
+                    "Detecting Secondary Master... REDACTED", 
+                    "Detecting Secondary Slave... None", 
+                    " ", 
+                    "Cognitohazard Filters Engaged.", 
+                    "Memetic Kill Agent Shielding Active.", 
+                    "Loading UIU OS from Secure Sector...",
                 ];
                 let lineIndex = 0;
 
@@ -969,28 +864,28 @@ GRAD_YEAR:        2002
                 let currentLine = document.createElement('p');
                 terminalContent.appendChild(currentLine);
 
-                typeWriter(currentLine, 'RAISA v3.1 Initialization complete. All systems nominal.', 50, () => {
-                     currentLine = document.createElement('p');
-                     terminalContent.appendChild(currentLine);
-                     typeWriter(currentLine, 'Verifying connection to SCiPNET Global... Secure link established.', 50, () => {
-                         currentLine = document.createElement('p');
-                         terminalContent.appendChild(currentLine);
-                         typeWriter(currentLine, 'WARNING: This terminal is under constant surveillance by RAISA.', 50, () => {
+                typeWriter(currentLine, 'UIU v3.1 Initialization complete. All systems nominal.', 50, () => {
+                    currentLine = document.createElement('p');
+                    terminalContent.appendChild(currentLine);
+                    typeWriter(currentLine, 'Verifying connection to USOCNET Global... Secure link established.', 50, () => {
+                        currentLine = document.createElement('p');
+                        terminalContent.appendChild(currentLine);
+                        typeWriter(currentLine, 'WARNING: This terminal is under constant surveillance by UIU.', 50, () => {
                             currentLine = document.createElement('p');
-                             currentLine.className = "mt-4";
+                            currentLine.className = "mt-4";
                             terminalContent.appendChild(currentLine);
-                            typeWriter(currentLine, 'The Following file falls under RAISA Secure Database OMEGA', 50, () => {
+                            typeWriter(currentLine, 'The Following file falls under UIU Secure Database OMEGA', 50, () => {
                                 currentLine = document.createElement('p');
                                 terminalContent.appendChild(currentLine);
-                                typeWriter(currentLine, 'Site 45 Archives', 50, () => {
+                                typeWriter(currentLine, 'PENTAGRAM Personnel Files', 50, () => {
                                     currentLine = document.createElement('p');
                                     currentLine.textContent = 'Please select a network:';
                                     terminalContent.appendChild(currentLine);
                                     showNetworkOptions();
                                 });
                             });
-                         });
-                     });
+                        });
+                    });
                 });
             }
             
@@ -1000,7 +895,7 @@ GRAD_YEAR:        2002
                 setTimeout(() => { errorPopup.classList.add('hidden'); }, 2000);
             }
 
-            function triggerMemeticAgent() {
+            function triggerMemeticAgent(callback) {
                 loginPopup.classList.add('hidden');
                 let currentLine = document.createElement('p');
                 terminalContent.appendChild(currentLine);
@@ -1017,28 +912,47 @@ GRAD_YEAR:        2002
                         setTimeout(() => {
                             currentLine = document.createElement('p');
                             terminalContent.appendChild(currentLine);
-                            typeWriter(currentLine, 'Personnel vitals still detected. Access granted.', 50, showWelcome);
+                            typeWriter(currentLine, 'Personnel vitals still detected. Access granted.', 50, callback);
                         }, 1000); 
                     }, 4000); 
                 });
             }
 
             function showLoginPopup() {
+                const natoPhonetics = ['ALPHA', 'BRAVO', 'CHARLIE', 'DELTA', 'ECHO', 'FOXTROT', 'GOLF', 'HOTEL', 'INDIA', 'JULIET', 'KILO', 'LIMA', 'MIKE', 'NOVEMBER', 'OSCAR', 'PAPA', 'QUEBEC', 'ROMEO', 'SIERRA', 'TANGO', 'UNIFORM', 'VICTOR', 'WHISKEY', 'XRAY', 'YANKEE', 'ZULU'];
+                const num1 = Math.floor(Math.random() * 100);
+                const phonetic1 = natoPhonetics[Math.floor(Math.random() * natoPhonetics.length)];
+                const phonetic2 = natoPhonetics[Math.floor(Math.random() * natoPhonetics.length)];
+                const num2 = Math.floor(Math.random() * 100);
+                const num3 = Math.floor(Math.random() * 1000);
+                const randomCode = `${num1}${phonetic1}-${phonetic2}-${num2}-${num3}`;
+                
                 loginPopup.classList.remove('hidden');
-                typeWriter(loginCode, '74ECHO-INDIGO-45-301', 150, triggerMemeticAgent);
+                loginCode.innerHTML = '';
+                typeWriter(loginCode, randomCode, 150, () => {
+                    triggerMemeticAgent(showWelcome);
+                });
             }
 
             function showNetworkOptions() {
-                const networks = { 'S45-GENUSE-LAN': false, 'S4S-RESEARCH-SEC': false, 'ARCHIVE-ISOLATED': true, 'S4S-GUEST': false };
+                const networks = { 
+                    'UIU-GUEST': false, 
+                    'UIU-LAN': false, 
+                    'UIU-RESEARCH-SEC': false, 
+                    'PERSONNEL FILES': true 
+                };
                 const container = document.createElement('div');
                 container.className = 'flex flex-wrap gap-4 my-4';
                 
                 for (const net in networks) {
                     const button = document.createElement('button');
-                    button.textContent = net;
+                    button.textContent = net === 'PERSONNEL FILES' ? net : `[REDACTED]`;
                     if (networks[net]) {
                         button.className = 'bg-yellow-600 text-black px-4 py-2 interactive-button border-2 border-white';
-                        button.onclick = () => { container.remove(); showLoginPopup(); };
+                        button.onclick = () => { 
+                            container.remove(); 
+                            showLoginPopup();
+                        };
                     } else {
                         button.className = 'bg-gray-600 text-gray-400 px-4 py-2 interactive-button cursor-not-allowed';
                         button.disabled = true;
@@ -1058,30 +972,31 @@ GRAD_YEAR:        2002
                 let currentLine = document.createElement('p');
                 terminalContent.appendChild(currentLine);
                 typeWriter(currentLine, 'Welcome, ███████', 50, () => {
-                     currentLine = document.createElement('p');
-                     terminalContent.appendChild(currentLine);
-                     typeWriter(currentLine, 'Would you like to access the Personnel Files Archive for Site 45?', 50, showAccessOptions);
+                    currentLine = document.createElement('p');
+                    terminalContent.appendChild(currentLine);
+                    typeWriter(currentLine, 'Would you like to access the Personnel File for ADAMS, MICHAEL?', 50, showAccessOptions);
                 });
             }
 
             function showAccessOptions() {
-                 const container = document.createElement('div');
-                 container.className = 'flex gap-4 my-4';
-                 const yesButton = document.createElement('button');
-                 yesButton.textContent = 'Y';
-                 yesButton.className = 'text-green-500 border border-green-500 px-4 py-2 interactive-button hover:bg-green-500 hover:text-black';
-                 yesButton.onclick = showArchive;
-                 const noButton = document.createElement('button');
-                 noButton.textContent = 'N';
-                 noButton.className = 'text-red-500 border border-red-500 px-4 py-2 interactive-button hover:bg-red-500 hover:text-black';
-                 container.appendChild(yesButton);
-                 container.appendChild(noButton);
-                 terminalContent.appendChild(container);
+                const container = document.createElement('div');
+                container.className = 'flex gap-4 my-4';
+                const yesButton = document.createElement('button');
+                yesButton.textContent = 'Y';
+                yesButton.className = 'text-green-500 border border-green-500 px-4 py-2 interactive-button hover:bg-green-500 hover:text-black';
+                yesButton.onclick = showPersonnelFile;
+                const noButton = document.createElement('button');
+                noButton.textContent = 'N';
+                noButton.className = 'text-red-500 border border-red-500 px-4 py-2 interactive-button hover:bg-red-500 hover:text-black';
+                container.appendChild(yesButton);
+                container.appendChild(noButton);
+                terminalContent.appendChild(container);
             }
 
-            function showArchive() {
+            function showPersonnelFile() {
                 terminalContent.style.display = 'none';
-                archiveScreen.classList.remove('hidden');
+                personnelFileScreen.classList.remove('hidden');
+                loadPersonnelFile();
             }
 
             startRemoteAccessSequence();
