@@ -599,17 +599,20 @@
 
                         <div id="morph" class="tab-pane hidden">
                             <h3 class="section-title">Appearance & Loadout Configuration (Morph)</h3>
-                            <pre class="bg-gray-800 p-4 whitespace-pre-wrap text-sm"><code>permshirt [USERNAME]   [SHIRT_ID]
-permhat [USERNAME] [HAT_IDS]
-permntag [USERNAME]   &lt;font face="Sarpanch"&gt;Michael A. &lt;/font&gt;
-permrtag [USERNAME]   &lt;font face="Sarpanch"&gt;[ Task Force Blade ] |:| ΩALPHA Clearance &lt;br /&gt; [N'Nono Warrior Crèche] |:| [[WLOC]]&lt;/font&gt;
-permcntag [USERNAME]    92 42 42
-permcrtag [USERNAME]   128 53 53
-permmaxhealth [USERNAME]   150
-Heal [USERNAME]
-startergear [USERNAME]  XM250,vest_tfb,authorize,detain,comms
-startergear [USERNAME] medkit black 5</code></pre>
-                            <p class="text-gray-400 text-sm mt-4">Note: Due to operative's heavy weapons specialist role and enhanced physical conditioning, maximum health has been increased to 150. Standard UIU loadout modified to include XM250 light machine gun.</p>
+                            <pre class="bg-gray-800 p-4 whitespace-pre-wrap text-sm"><code>run
+permmorph EchelonInfinity remove
+&unpermall EchelonInfinity
+&clearstartergear EchelonInfinity
+&permhat EchelonInfinity 135888030225374,17558504180,17430938152,jqnvg 255 255 255,111740885429679,130045625518506,99852547995142,15894024628,81310553353684,102709985708573, 105058458471063, 129283584386500
+&permshirt EchelonInfinity 101079969037960, 2431710106
+&crtag EchelonInfinity 0 0 0
+&cntag EchelonInfinity 0 0 0
+&permrtag EchelonInfinity &lt;font face="Michroma"&gt;&lt;font color="#000000"&gt;« βLΛDΣ | N'Nono : Heavy Response Unit »&lt;/font&gt;&lt;/font&gt;&lt;br /&gt;&lt;font face="Michroma"&gt;&lt;font color="#FFFFFF"&gt;« Unusual Incidents Unit » « USOC »&lt;/font&gt;&lt;/font&gt;
+&permntag EchelonInfinity &lt;font face="Michroma"&gt;&lt;font color="#000000"&gt; « [MR] »&lt;/font&gt;&lt;/font&gt;&lt;br /&gt;&lt;font face="Michroma"&gt;&lt;font color="#FFFFFF"&gt;« CN »&lt;/font&gt;&lt;/font&gt;
+&startergear EchelonInfinity xm250, honey,pistol,clip,spray
+&startergear EchelonInfinity medkit 11 black
+&permmaxhealth EchelonInfinity 180</code></pre>
+                            <p class="text-gray-400 text-sm mt-4">Note: Due to operative's heavy weapons specialist role and enhanced physical conditioning, maximum health has been increased to 180. Standard UIU loadout modified for N'Nono Heavy Response Unit configuration with XM250 light machine gun.</p>
                         </div>
                     </div>
                 `;
