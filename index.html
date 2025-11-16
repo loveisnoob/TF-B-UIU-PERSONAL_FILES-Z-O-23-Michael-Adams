@@ -139,9 +139,23 @@
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
+
+        #sound-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 10001;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="w-screen h-screen">
+
+    <button id="sound-toggle" class="interactive-button">SOUND: ON</button>
 
     <div class="custom-cursor" id="custom-cursor"></div>
     <div class="fixed inset-0 bg-black bg-opacity-20 z-[-1]"></div>
@@ -222,6 +236,115 @@
             const genericModal = document.getElementById('generic-modal');
             const modalContentBody = document.getElementById('modal-content-body');
             const modalCloseButton = document.getElementById('modal-close-button');
+            const soundToggle = document.getElementById('sound-toggle');
+
+            // Audio Context for typing sounds and ambient
+            let audioCtx = null;
+            let ambientSound = null;
+            let soundEnabled = true;
+
+            // Initialize audio context on first user interaction
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    startAmbientSound();
+                }
+            }
+
+            // Create typing sound
+            function playTypingSound() {
+                if (!soundEnabled || !audioCtx) return;
+                
+                try {
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.frequency.value = 800 + Math.random() * 200;
+                    oscillator.type = 'square';
+                    
+                    gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.05);
+                } catch (e) {
+                    console.log('Audio error:', e);
+                }
+            }
+
+            // Create ambient hum sound
+            function startAmbientSound() {
+                if (!soundEnabled || ambientSound || !audioCtx) return;
+                
+                try {
+                    const oscillator1 = audioCtx.createOscillator();
+                    const oscillator2 = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    const filter = audioCtx.createBiquadFilter();
+                    
+                    oscillator1.type = 'sine';
+                    oscillator1.frequency.value = 60;
+                    oscillator2.type = 'sine';
+                    oscillator2.frequency.value = 120;
+                    
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 200;
+                    
+                    gainNode.gain.value = 0.015;
+                    
+                    oscillator1.connect(filter);
+                    oscillator2.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator1.start();
+                    oscillator2.start();
+                    
+                    ambientSound = { oscillator1, oscillator2, gainNode };
+                } catch (e) {
+                    console.log('Ambient sound error:', e);
+                }
+            }
+
+            // Stop ambient sound
+            function stopAmbientSound() {
+                if (ambientSound) {
+                    try {
+                        ambientSound.oscillator1.stop();
+                        ambientSound.oscillator2.stop();
+                    } catch (e) {}
+                    ambientSound = null;
+                }
+            }
+
+            // Sound toggle button
+            soundToggle.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                soundToggle.textContent = soundEnabled ? 'SOUND: ON' : 'SOUND: OFF';
+                
+                if (soundEnabled) {
+                    initAudio();
+                    if (audioCtx && audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                    startAmbientSound();
+                } else {
+                    stopAmbientSound();
+                }
+            });
+
+            // Initialize audio on first click
+            document.addEventListener('click', () => {
+                if (!audioCtx) {
+                    initAudio();
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                }
+            }, { once: true });
 
             function showModal(content) {
                 modalContentBody.innerHTML = content;
@@ -256,6 +379,7 @@
                 function type() {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
+                        playTypingSound();
                         i++;
                         setTimeout(type, speed);
                     } else if (callback) {
@@ -270,11 +394,8 @@
                 personnelFileScreen.classList.remove('hidden');
                 
                 personnelFileScreen.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="mb-4">
                          <h2 class="text-2xl text-yellow-300">PERSONNEL FILE: ADAMS, MICHAEL</h2>
-                         <div class="flex-shrink-0 ml-4">
-                            <button id="download-pdf" class="bg-blue-500 text-white px-2 py-1 interactive-button text-sm block w-full">[Download as PDF]</button>
-                         </div>
                     </div>
 
                     <div id="pdf-content" class="text-sm">
@@ -558,7 +679,10 @@
                                 
                                 <div class="mt-6 bg-red-900 border-2 border-red-500 p-4">
                                     <p class="text-red-200"><strong>POST-OPERATION NOTE:</strong></p>
-                                    <p class="text-red-200 mt-2">Michael Adams' records were almost fully wiped out from every United States Military Records following the operation. The only remaining proof of his participation in the Operation lies within the Records page, alongside other agents.</p>
+                                    <p class="text-red-200 mt-2">Michael Adams was imperative in the termination of the CAN, providing suppressive fire and aiding TFB agents and civilians alike. He rescued a wounded TFB agent and transported them to a nearby field clinic before returning to the battlefield. Upon arrival, his actions were spontaneous: lunging towards the esoteric CAN and engaging it in brutal hand-to-hand combat, repeatedly stabbing it in the heart even amidst ongoing gunfire.</p>
+                                    <p class="text-red-200 mt-2">The CAN was brutalized. It attempted to resist but was met by the sheer power and force of Michael's body, eventually succumbing to death following 23 counts of stabbing, a deep gash in its shoulder, and 4 bullet holes from an M9.</p>
+                                    <p class="text-red-200 mt-2">He was last seen near the field hospital, where TF-B agents escorted him out, leading to where he is today.</p>
+                                    <p class="text-red-200 mt-4">Michael Adams' records were almost fully wiped out from every United States Military Records following the operation. The only remaining proof of his participation in the Operation lies within the Records page, alongside other agents.</p>
                                 </div>
                                 
                                 <div class="mt-4 text-xs text-gray-500 italic text-center">
@@ -611,7 +735,8 @@ permmorph EchelonInfinity remove
 &permntag EchelonInfinity &lt;font face="Michroma"&gt;&lt;font color="#000000"&gt; « [MR] »&lt;/font&gt;&lt;/font&gt;&lt;br /&gt;&lt;font face="Michroma"&gt;&lt;font color="#FFFFFF"&gt;« CN »&lt;/font&gt;&lt;/font&gt;
 &startergear EchelonInfinity xm250, honey,pistol,clip,spray
 &startergear EchelonInfinity medkit 11 black
-&permmaxhealth EchelonInfinity 180</code></pre>
+&permmaxhealth EchelonInfinity 180
+&permscale EchelonInfinity 1.12</code></pre>
                             <p class="text-gray-400 text-sm mt-4">Note: Due to operative's heavy weapons specialist role and enhanced physical conditioning, maximum health has been increased to 180. Standard UIU loadout modified for N'Nono Heavy Response Unit configuration with XM250 light machine gun.</p>
                         </div>
                     </div>
@@ -636,86 +761,6 @@ permmorph EchelonInfinity remove
                         if (targetPane) {
                             targetPane.classList.remove('hidden');
                         }
-                    });
-                });
-
-                document.getElementById('download-pdf').addEventListener('click', () => {
-                    const originalContent = document.getElementById('pdf-content');
-                    const contentToPrint = document.createElement('div');
-
-                    const mainTitle = document.createElement('h1');
-                    mainTitle.textContent = "PERSONNEL FILE: ADAMS, MICHAEL";
-                    mainTitle.style.fontSize = '24px';
-                    mainTitle.style.fontWeight = 'bold';
-                    mainTitle.style.marginBottom = '20px';
-                    contentToPrint.appendChild(mainTitle);
-
-                    const tabButtons = originalContent.querySelectorAll('.tab-button');
-                    tabButtons.forEach(button => {
-                        const tabId = button.dataset.tab;
-                        const tabPaneClone = originalContent.querySelector(`#${tabId}`).cloneNode(true);
-                        
-                        tabPaneClone.classList.remove('hidden');
-                        
-                        const sectionTitle = document.createElement('h2');
-                        sectionTitle.textContent = button.textContent;
-                        sectionTitle.style.fontSize = '18px';
-                        sectionTitle.style.fontWeight = 'bold';
-                        sectionTitle.style.marginTop = '30px';
-                        sectionTitle.style.marginBottom = '15px';
-                        sectionTitle.style.borderBottom = '1px solid #ccc';
-                        sectionTitle.style.paddingBottom = '5px';
-                        sectionTitle.style.pageBreakBefore = 'always';
-
-                        contentToPrint.appendChild(sectionTitle);
-                        contentToPrint.appendChild(tabPaneClone);
-                    });
-
-                    const printWrapper = document.createElement('div');
-                    printWrapper.id = "pdf-content-clone";
-                    printWrapper.style.backgroundColor = 'white';
-                    printWrapper.style.color = 'black';
-                    printWrapper.style.width = '1200px';
-                    printWrapper.style.padding = '40px';
-                    printWrapper.style.fontFamily = "'Courier New', Courier, monospace";
-
-                    contentToPrint.querySelectorAll('*').forEach(el => { el.style.color = 'black'; });
-                    contentToPrint.querySelectorAll('.highlight-text').forEach(el => el.style.color = '#333');
-                    contentToPrint.querySelectorAll('.bg-gray-800, .bg-gray-700').forEach(el => {
-                        el.style.backgroundColor = '#f0f0f0';
-                        el.style.border = '1px solid #ddd';
-                    });
-                    contentToPrint.querySelectorAll('[class*="border-"]').forEach(el => el.style.borderColor = '#ccc');
-                    contentToPrint.querySelector('pre')?.style.setProperty('background-color', '#eef', 'important');
-
-                    printWrapper.appendChild(contentToPrint);
-                    printWrapper.style.position = 'absolute';
-                    printWrapper.style.left = '-9999px';
-                    document.body.appendChild(printWrapper);
-
-                    html2canvas(printWrapper, { scale: 2 }).then(canvas => {
-                        document.body.removeChild(printWrapper);
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jsPDF('p', 'mm', 'a4');
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const pdfHeight = pdf.internal.pageSize.getHeight();
-                        const canvasWidth = canvas.width;
-                        const canvasHeight = canvas.height;
-                        const ratio = canvasWidth / pdfWidth;
-                        const imgHeight = canvasHeight / ratio;
-                        let heightLeft = imgHeight;
-                        let position = 0;
-
-                        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                        heightLeft -= pdfHeight;
-
-                        while (heightLeft >= 0) {
-                            position = -heightLeft;
-                            pdf.addPage();
-                            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                            heightLeft -= pdfHeight;
-                        }
-                        pdf.save("Personnel_File_Adams_Michael.pdf");
                     });
                 });
 
