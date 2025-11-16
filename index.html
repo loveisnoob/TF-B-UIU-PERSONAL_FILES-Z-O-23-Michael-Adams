@@ -30,7 +30,7 @@
         }
         body::after {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -379,7 +379,10 @@
                 function type() {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
-                        playTypingSound();
+                        // Only play sound every 2-3 characters for a more realistic typing rhythm
+                        if (i % 2 === 0 || Math.random() > 0.5) {
+                            playTypingSound();
+                        }
                         i++;
                         setTimeout(type, speed);
                     } else if (callback) {
