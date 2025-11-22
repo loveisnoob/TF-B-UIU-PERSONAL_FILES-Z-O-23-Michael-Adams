@@ -82,19 +82,20 @@
         }
         .interactive-button:hover:not(:disabled) {
             transform: scale(1.05);
-            text-shadow: 0 0 8px currentColor;
+            text-shadow: 0 0 5px currentColor;
         }
 
         #memetic-agent img {
             border: 2px solid white;
-            box-shadow: 0 0 15px white;
+            box-shadow: 0 0 10px white;
+            border-radius: 0.5rem;
         }
         
         .highlight-text {
             @apply text-cyan-300;
         }
         .section-title {
-            @apply text-yellow-400 text-lg border-b-2 border-gray-600 pb-2 mb-3 mt-4 font-bold;
+            @apply text-yellow-500 text-lg border-b border-gray-600 pb-1 mb-3 mt-5 font-bold uppercase;
         }
         .info-grid {
             @apply grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2;
@@ -103,7 +104,7 @@
             @apply text-gray-400;
         }
         .tab-button.active {
-            @apply text-yellow-400 border-yellow-400;
+            @apply text-yellow-500 border-yellow-500;
         }
 
         #remote-access-screen .computer-icon {
@@ -145,11 +146,97 @@
             top: 10px;
             right: 10px;
             z-index: 10001;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             border: 1px solid #fff;
             color: #fff;
             padding: 8px 16px;
             font-size: 12px;
+        }
+
+        .radio-transcript {
+            background: #1a1a1a;
+            border: 2px solid #dc2626;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .radio-line {
+            margin: 0.5rem 0;
+        }
+        
+        .radio-speaker {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .radio-static {
+            color: #888;
+            font-style: italic;
+        }
+        
+        .radio-urgent {
+            color: #ff4444;
+            font-weight: bold;
+        }
+
+        .video-container {
+            position: relative;
+            background: #000;
+            border: 2px solid #444;
+            margin: 1rem 0;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #radio-playback-screen {
+            background: linear-gradient(to bottom, #000000, #0a0a0a);
+            padding: 2rem;
+        }
+
+        .radio-playback-line {
+            text-shadow: 0 0 5px currentColor;
+            animation: fadeInText 0.3s ease-in;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .radio-video-frame {
+            border: 2px solid #fbbf24;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+            overflow: hidden;
+            margin: 1.5rem 0;
+            max-width: 100%;
+        }
+
+        .radio-video-frame video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .radio-static-effect {
+            opacity: 0.7;
+        }
+
+        .bg-box {
+            background-color: rgba(31, 41, 55, 0.5);
+            padding: 1rem;
+            border: 1px solid #4a5568;
+        }
+
+        .border-accent {
+            border-left: 3px solid;
+            padding-left: 1rem;
         }
     </style>
 </head>
@@ -161,7 +248,7 @@
     <div class="fixed inset-0 bg-black bg-opacity-20 z-[-1]"></div>
 
     <div id="generic-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
-        <div id="modal-content-container" class="relative bg-gray-900 border-2 border-yellow-500 p-6 rounded-lg shadow-xl w-full max-w-3xl overflow-y-auto">
+        <div id="modal-content-container" class="relative bg-gray-900 border-2 border-yellow-600 p-6 shadow-xl w-full max-w-3xl overflow-y-auto">
             <button id="modal-close-button" class="absolute top-2 right-2 text-white text-2xl font-bold hover:text-yellow-400">&times;</button>
             <div id="modal-content-body"></div>
         </div>
@@ -172,7 +259,7 @@
             <path d="M7 21H17M12 17V21M3 12C3 4.58172 4.58172 3 12 3C19.4183 3 21 4.58172 21 12M4 17H20M5 14H7M9 14H11" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <p id="remote-status" class="text-lg mb-4">Establishing Secure Connection...</p>
-        <div class="w-1/2 max-w-sm bg-gray-700 border border-white h-4">
+        <div class="w-1/2 max-w-sm bg-gray-700 border-2 border-white h-4">
             <div id="remote-progress-bar" class="bg-white h-full" style="width: 0%;"></div>
         </div>
     </div>
@@ -183,15 +270,15 @@
     </div>
     
     <div id="error-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[70]">
-        <div class="bg-gray-800 border-2 border-red-500 p-8 rounded-lg shadow-xl text-center">
-            <h2 class="text-2xl text-red-500 mb-4">NETWORK ERROR</h2>
+        <div class="bg-gray-800 border-2 border-red-500 p-8 shadow-xl text-center">
+            <h2 class="text-2xl text-red-500 mb-4 font-bold">NETWORK ERROR</h2>
             <p id="error-message" class="text-lg">Network Unavailable</p>
         </div>
     </div>
     
     <div id="login-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[70]">
-        <div class="bg-gray-900 border-2 border-yellow-500 p-8 rounded-lg shadow-xl text-left w-full max-w-md">
-            <h2 class="text-xl text-yellow-500 mb-4">UIU AUTHENTICATION REQUIRED</h2>
+        <div class="bg-gray-900 border-2 border-yellow-600 p-8 shadow-xl text-left w-full max-w-md">
+            <h2 class="text-xl text-yellow-500 mb-4 font-bold">UIU AUTHENTICATION REQUIRED</h2>
             <p>Please enter your Designated UIU Clearance Code:</p>
             <div class="bg-black p-2 mt-2 h-8">
                 <span id="login-code"></span><span class="animate-ping">_</span>
@@ -203,8 +290,12 @@
         <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/assets_task_01k7n8gyf7f7nrqynthtchbceh_1760576470_img_0.webp" alt="MEMETIC KILL AGENT ACTIVATED" class="max-w-full max-h-full object-contain">
     </div>
 
+    <div id="radio-playback-screen" class="hidden fixed inset-0 bg-black flex items-start justify-start z-[75] overflow-y-auto">
+        <div id="radio-playback-content" class="w-full max-w-6xl mx-auto p-8 text-white text-lg"></div>
+    </div>
+
     <div id="main-terminal" class="hidden h-full flex flex-col">
-        <div class="w-full bg-gray-700 bg-opacity-80 p-2 text-gray-200 flex items-center flex-shrink-0" style="border-bottom: 2px solid rgba(255, 255, 255, 0.7);">
+        <div class="w-full bg-gray-700 bg-opacity-80 p-3 text-gray-200 flex items-center flex-shrink-0" style="border-bottom: 2px solid rgba(255, 255, 255, 0.5);">
             <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Logo_SCP_Foundation-removebg-preview.png" alt="UIU Logo" class="h-8 w-8 mr-4">
             <span class="mr-6">ID: UIU-TERM-03</span>
             <span class="mr-6">LOCATION: PENTAGRAM</span>
@@ -212,8 +303,8 @@
         </div>
 
         <div class="flex-grow overflow-hidden" id="terminal-content-wrapper">
-            <div class="p-4 h-full overflow-y-auto" id="terminal-content"></div>
-            <div id="personnel-file-screen" class="hidden h-full overflow-y-auto bg-gray-900 bg-opacity-50 p-4"></div>
+            <div class="p-6 h-full overflow-y-auto" id="terminal-content"></div>
+            <div id="personnel-file-screen" class="hidden h-full overflow-y-auto bg-gray-900 bg-opacity-50 p-6"></div>
         </div>
     </div>
 
@@ -238,12 +329,12 @@
             const modalCloseButton = document.getElementById('modal-close-button');
             const soundToggle = document.getElementById('sound-toggle');
 
-            // Audio Context for typing sounds and ambient
             let audioCtx = null;
             let ambientSound = null;
             let soundEnabled = true;
+            let radioStaticSource = null;
+            let radioStaticGain = null;
 
-            // Initialize audio context on first user interaction
             function initAudio() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -251,7 +342,91 @@
                 }
             }
 
-            // Create typing sound
+            function playRadioStatic() {
+                if (!soundEnabled || !audioCtx) return;
+                
+                try {
+                    stopRadioStatic();
+                    
+                    const bufferSize = audioCtx.sampleRate * 2;
+                    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    
+                    for (let i = 0; i < bufferSize; i++) {
+                        output[i] = Math.random() * 2 - 1;
+                    }
+                    
+                    radioStaticSource = audioCtx.createBufferSource();
+                    radioStaticSource.buffer = noiseBuffer;
+                    radioStaticSource.loop = true;
+                    
+                    const bandpass = audioCtx.createBiquadFilter();
+                    bandpass.type = 'bandpass';
+                    bandpass.frequency.value = 3000;
+                    bandpass.Q.value = 1;
+                    
+                    const highpass = audioCtx.createBiquadFilter();
+                    highpass.type = 'highpass';
+                    highpass.frequency.value = 1000;
+                    
+                    radioStaticGain = audioCtx.createGain();
+                    radioStaticGain.gain.value = 0.03;
+                    
+                    radioStaticSource.connect(bandpass);
+                    bandpass.connect(highpass);
+                    highpass.connect(radioStaticGain);
+                    radioStaticGain.connect(audioCtx.destination);
+                    
+                    radioStaticSource.start();
+                } catch (e) {
+                    console.log('Radio static error:', e);
+                }
+            }
+
+            function stopRadioStatic() {
+                if (radioStaticSource) {
+                    try {
+                        radioStaticSource.stop();
+                    } catch (e) {}
+                    radioStaticSource = null;
+                    radioStaticGain = null;
+                }
+            }
+
+            function playStaticBurst() {
+                if (!soundEnabled || !audioCtx) return;
+                
+                try {
+                    const bufferSize = audioCtx.sampleRate * 0.3;
+                    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const output = noiseBuffer.getChannelData(0);
+                    
+                    for (let i = 0; i < bufferSize; i++) {
+                        output[i] = Math.random() * 2 - 1;
+                    }
+                    
+                    const source = audioCtx.createBufferSource();
+                    source.buffer = noiseBuffer;
+                    
+                    const bandpass = audioCtx.createBiquadFilter();
+                    bandpass.type = 'bandpass';
+                    bandpass.frequency.value = 2500;
+                    
+                    const gainNode = audioCtx.createGain();
+                    gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    
+                    source.connect(bandpass);
+                    bandpass.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    source.start();
+                    source.stop(audioCtx.currentTime + 0.3);
+                } catch (e) {
+                    console.log('Static burst error:', e);
+                }
+            }
+
             function playTypingSound() {
                 if (!soundEnabled || !audioCtx) return;
                 
@@ -275,7 +450,6 @@
                 }
             }
 
-            // Create ambient hum sound
             function startAmbientSound() {
                 if (!soundEnabled || ambientSound || !audioCtx) return;
                 
@@ -309,7 +483,6 @@
                 }
             }
 
-            // Stop ambient sound
             function stopAmbientSound() {
                 if (ambientSound) {
                     try {
@@ -320,7 +493,6 @@
                 }
             }
 
-            // Sound toggle button
             soundToggle.addEventListener('click', () => {
                 soundEnabled = !soundEnabled;
                 soundToggle.textContent = soundEnabled ? 'SOUND: ON' : 'SOUND: OFF';
@@ -336,7 +508,6 @@
                 }
             });
 
-            // Initialize audio on first click
             document.addEventListener('click', () => {
                 if (!audioCtx) {
                     initAudio();
@@ -379,7 +550,6 @@
                 function type() {
                     if (i < text.length) {
                         element.innerHTML += text.charAt(i);
-                        // Only play sound every 2-3 characters for a more realistic typing rhythm
                         if (i % 2 === 0 || Math.random() > 0.5) {
                             playTypingSound();
                         }
@@ -397,50 +567,52 @@
                 personnelFileScreen.classList.remove('hidden');
                 
                 personnelFileScreen.innerHTML = `
-                    <div class="mb-4">
-                         <h2 class="text-2xl text-yellow-300">PERSONNEL FILE: ADAMS, MICHAEL</h2>
+                    <div class="mb-6">
+                         <h2 class="text-2xl text-yellow-400">PERSONNEL FILE: ADAMS, MICHAEL</h2>
                     </div>
 
                     <div id="pdf-content" class="text-sm">
-                         <div class="flex border-b border-gray-600 mb-4 flex-wrap">
+                         <div class="flex border-b border-gray-600 mb-6 flex-wrap gap-2">
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white active" data-tab="service-record">Service Record</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="backstory">Backstory</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="timeline">Timeline</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="tfb-briefing">TFB Briefing</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="operation">Operation</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="glasgow">Glasgow Incident</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="records">Records</button>
                             <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="morph">Morph</button>
+                            <button class="tab-button px-4 py-2 text-gray-400 border-b-2 border-transparent hover:text-white" data-tab="radio">Radio Log</button>
                         </div>
 
                         <div id="service-record" class="tab-pane">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                                 <div class="md:col-span-2">
                                     <h3 class="section-title">Biographical & Service Data</h3>
-                                    <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-yellow-500">
+                                    <div class="bg-box border-l-2 border-yellow-600">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                                            <div class="info-item"><strong class="text-yellow-400">Name:</strong> <span class="highlight-text">Michael Adams</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Current Assignment:</strong> <span class="highlight-text">TF-B [REDACTED]</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Date of Birth:</strong> <span class="highlight-text">February 28, 1991</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Security Clearance:</strong> <span class="highlight-text">ΩALPHA</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Age:</strong> <span class="highlight-text">34</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Date of Recruitment:</strong> <span class="highlight-text">██ / ██ / 2024</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Place of Birth:</strong> <span class="highlight-text">Denver, CO, USA</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Parents:</strong> <span class="highlight-text">Florence Adams & John Adams</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Height:</strong> <span class="highlight-text">6'1" (185 cm)</span></div>
-                                            <div class="info-item"><strong class="text-yellow-400">Weight:</strong> <span class="highlight-text">220 lbs (100 kg)</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Name:</strong> <span class="highlight-text">Michael Adams</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Current Assignment:</strong> <span class="highlight-text">TF-B [REDACTED]</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Date of Birth:</strong> <span class="highlight-text">February 28, 1991</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Security Clearance:</strong> <span class="highlight-text">ΩALPHA</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Age:</strong> <span class="highlight-text">34</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Date of Recruitment:</strong> <span class="highlight-text">██ / ██ / 2024</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Place of Birth:</strong> <span class="highlight-text">Denver, CO, USA</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Parents:</strong> <span class="highlight-text">Florence Adams & John Adams</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Height:</strong> <span class="highlight-text">6'1" (185 cm)</span></div>
+                                            <div class="info-item"><strong class="text-yellow-500">Weight:</strong> <span class="highlight-text">220 lbs (100 kg)</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="md:col-span-1 flex flex-col items-center justify-center">
-                                    <div class="border-4 border-yellow-500 p-2 mb-4 w-64 h-64 bg-gray-800 shadow-lg">
+                                    <div class="border-2 border-yellow-600 p-2 mb-4 w-64 h-64 bg-gray-800 shadow-lg">
                                         <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Personnel%20Portrait.png" alt="Personnel Portrait" class="w-full h-full object-cover">
                                     </div>
                                     <p class="text-xs text-gray-400 text-center">[ CLEARANCE CONFIRMED ]</p>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-cyan-400">
-                                    <h4 class="text-lg text-yellow-400 mb-3 font-bold">Progression</h4>
+                                <div class="bg-box border-accent border-cyan-400">
+                                    <h4 class="text-lg text-yellow-500 mb-3 font-bold">Progression</h4>
                                     <ul class="list-disc list-inside space-y-2">
                                         <li><span class="highlight-text">2009 - 2012:</span> Entered Navy SEAL Recruitment, 2 Deployments in Afghanistan</li>
                                         <li><span class="highlight-text">2013 - 2020:</span> Invited into DEVGRU, performed clandestine operations in Somalia and Yemen</li>
@@ -448,14 +620,14 @@
                                         <li><span class="highlight-text">2022 - Present:</span> Currently Positioned within TF-B</li>
                                     </ul>
                                 </div>
-                                <div class="bg-gray-800 bg-opacity-50 p-4 border-l-4 border-yellow-400">
-                                    <h4 class="text-lg text-yellow-400 mb-3 font-bold">Notable Accomplishments</h4>
+                                <div class="bg-box border-accent border-yellow-600">
+                                    <h4 class="text-lg text-yellow-500 mb-3 font-bold">Notable Accomplishments</h4>
                                     <ul class="list-disc list-inside space-y-2">
                                         <li>Racked a total of <span class="text-red-400 font-bold">70 combat kills</span></li>
                                         <li>Killed a high-valued <span class="highlight-text">Yemeni Al-Qaeda warlord</span></li>
                                         <li>Achieved the rank of <span class="highlight-text">E-7</span> within DEVGRU</li>
                                         <li>Involved in the success of Operation <span class="text-red-400">█████████-████████</span></li>
-                                        <li>Nicknamed <span class="text-yellow-400 font-bold">"Dozer"</span> by fellow operatives</li>
+                                        <li>Nicknamed <span class="text-yellow-500 font-bold">"Dozer"</span> by fellow operatives</li>
                                     </ul>
                                 </div>
                             </div>
@@ -470,7 +642,7 @@
                                 <br/><br/>
                                 He was out playing football with his friends in the university's campus, when that one fateful notification, that one fateful sound, a message, a message that means everything has changed.
                                 <br/><br/>
-                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <span class="text-yellow-500 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
                                 <br/><br/>
                                 It's now 2009, one year after the incident.
                                 <br/>
@@ -479,7 +651,7 @@
                                 One day, he received a message from his varsity's football team. It reads:
                             </p>
                             
-                            <div class="my-4 bg-gray-800 p-4 border-l-4 border-cyan-400 italic">
+                            <div class="my-6 bg-box border-accent border-cyan-400 italic">
                                 <p class="text-gray-200">"Dear Michael, I know life has been tough for you son, but you have to move on, you can't keep staying in this condition, you need to let it go, through hardships a man must break through, and I believe you're in that phase.</p>
                                 <p class="text-gray-200 mt-2">I have done whatever I could to keep you in the team, but if you continue to leave matches and our routine practices, I'm forced to kick you out. Son, I know what you feel like now, but whatever it is, God's given you a test, and you have to persevere through it. -Your dear coach"</p>
                             </div>
@@ -487,17 +659,17 @@
                             <p class="text-gray-300 leading-relaxed">
                                 At that moment, his tears wanted to burst. He lost his family, and now he's going to lose the only thing that matters to him? He can feel the water drip from his eyes, and then he screamed, he cried and rolled around his bed the entire night.
                                 <br/><br/>
-                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <span class="text-yellow-500 font-semibold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
                                 <br/><br/>
                                 A desire, a want to change.
                                 <br/>
                                 For ever since that incident, he felt something inside him. It wasn't hope or belief, at least not yet, but the faint echo of the man he wants to become. The boy who carried a football team on his back. The son who held a farm together when his family needed it.
                                 <br/><br/>
-                                That night, after hours of crying, he bravely stood up, walked to the bathroo, and stared at the reflection looking back at him. He almost gave up again.
+                                That night, after hours of crying, he bravely stood up, walked to the bathroom, and stared at the reflection looking back at him. He almost gave up again.
                                 <br/>
                                 But he could hear two words go out of his mouth:
                                 <br/><br/>
-                                <span class="text-yellow-400 text-lg font-bold">"No more."</span>
+                                <span class="text-yellow-500 text-lg font-bold">"No more."</span>
                                 <br/><br/>
                                 Over the next weeks, he forced himself to change. The drinking slowed. The all nighters stopped. He dragged himself out of bed at sunrise and started running again. At first he started with a mile, then two, then four. His body fought back at him, but he pushed back harder.
                                 <br/>
@@ -519,7 +691,7 @@
                                 <br/>
                                 The next morning, he walked inside and enlisted.
                                 <br/><br/>
-                                <span class="text-yellow-400 font-bold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                                <span class="text-yellow-500 font-semibold">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
                                 <br/><br/>
                                 One! Two! Three! Four! … The day of hell has come.
                                 <br/>
@@ -543,7 +715,7 @@
                                 <br/>
                                 His favourite weapon was the M250, due to its bulky yet powerful dump, being able to silence entire lines of infantry with just a single magazine, and due to his heavy stature, the big weapon wasn't a hassle to carry.
                                 <br/>
-                                Using this weapon, he mowed down entire opposing infantry entrenchements and suppressed fire for his fellow operatives, leading to him being called <span class="text-yellow-400 font-bold">"Dozer"</span> for his bulky and tanky nature.
+                                Using this weapon, he mowed down entire opposing infantry entrenchements and suppressed fire for his fellow operatives, leading to him being called <span class="text-yellow-500 font-semibold">"Dozer"</span> for his bulky and tanky nature.
                                 <br/><br/>
                                 He continued his highly secretive service up to 2024, where he was allowed leave after an exhausting 7-day training exercise with other Navy regiments. And decided to meet one of his E-Squadron mates he performed an operation alongside with in Britain, where fate has decided another test for him.
                                 <br/><br/>
@@ -561,71 +733,78 @@
                         
                         <div id="timeline" class="tab-pane hidden">
                             <h3 class="section-title">Career Timeline</h3>
-                            <div class="relative border-l-2 border-gray-600 pl-6 space-y-6">
+                            <div class="relative border-l-2 border-gray-600 pl-8 space-y-8 ml-4">
                                 <div class="relative">
-                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
-                                    <p class="font-bold">February 28, 1991</p>
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-500"></div>
+                                    <p class="font-semibold">February 28, 1991</p>
                                     <p class="text-gray-300">Born in Denver, Colorado.</p>
                                 </div>
                                 <div class="relative">
                                     <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                    <p class="font-bold">2009 - 2012</p>
+                                    <p class="font-semibold">2009 - 2012</p>
                                     <p class="text-gray-300">Completed BUD/S training. Participated in 2 deployments in Afghanistan with 25+ confirmed kills.</p>
                                 </div>
                                 <div class="relative">
                                     <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                    <p class="font-bold">2013</p>
+                                    <p class="font-semibold">2013</p>
                                     <p class="text-gray-300">Invited into DEVGRU. Completed Green Team trials, ranking top of his class.</p>
                                 </div>
                                 <div class="relative">
                                     <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-cyan-300"></div>
-                                    <p class="font-bold">2013 - 2020</p>
+                                    <p class="font-semibold">2013 - 2020</p>
                                     <p class="text-gray-300">Performed clandestine operations in Somalia and Yemen. Killed high-valued Yemeni Al-Qaeda warlord (2017).</p>
                                 </div>
                                 <div class="relative">
                                     <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-green-500"></div>
-                                    <p class="font-bold">2020 - 2022</p>
+                                    <p class="font-semibold">2020 - 2022</p>
                                     <p class="text-gray-300">Promoted to NCO (E-7) within DEVGRU. Involved in Operation █████████-████████.</p>
                                 </div>
                                 <div class="relative">
                                     <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-red-500"></div>
-                                    <p class="font-bold">2024</p>
+                                    <p class="font-semibold">2024</p>
                                     <p class="text-gray-300">Participated in IR-4001 Post-Response Operation. Records wiped from military databases.</p>
                                 </div>
                                 <div class="relative">
-                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-400"></div>
-                                    <p class="font-bold">2024 - Present</p>
+                                    <div class="absolute -left-[35px] top-1 h-4 w-4 rounded-full bg-yellow-500"></div>
+                                    <p class="font-semibold">2024 - Present</p>
                                     <p class="text-gray-300">Re-indoctrinated into UIU Task Force Blade. Assigned to N'Nono Warrior Crèche.</p>
                                 </div>
                             </div>
                         </div>
 
                         <div id="tfb-briefing" class="tab-pane hidden">
-                            <div class="flex mt-4 items-start">
+                            <div class="flex mt-4 items-start gap-6">
                                 <div class="flex-grow">
                                     <h3 class="section-title">Task Force Briefing: Task Force Blade (TF-B)</h3>
-                                    <p><strong>Primary Directive:</strong> Protective detail for UIU directorate and VIPs, hostage rescue, and emergency recontainment operations.</p>
-                                    <h4 class="text-lg text-yellow-400 mb-2 mt-4">Task Force History</h4>
-                                    <p class="text-gray-300">Following the events of IR-4001, a significant amount of infrastructure, records, and personnel within government agencies perished. This spurred the United States Government to issue an executive order to restructure their anomalous agencies especially. The previously severely underfunded Unusual Incidents Unit benefitted from gaining equipment and volunteers sent by the Central Intelligence Agency, allowing for the creation of new specialized divisions within the FBIUIU:</p>
-                                    <p class="text-gray-300 mt-2"><span class="highlight-text">Task Force "Blade"</span> is the UIU's guarding and MP task force. They provide security to UIU's directorate and VIPs, such as American executives when they visit our areas of operations.</p>
-                                    <h4 class="text-lg text-yellow-400 mb-2 mt-4">N'Nono Warrior Crèche 〈 3-14233 〉</h4>
-                                    <p class="text-gray-300">N'Nono Warrior Crèche is Blade's dedicated frontline recontainment element, specializing in combating SCP-class anomalies, emergency recontainment, and protection of High Command and critical assets during breach events and interviews. Each N'Nono element is operated by one Captain and one Field Officer, who share responsibility for mission command, rules-of-engagement decisions, and the controlled handoff to specialist or long-term containment teams.</p>
-                                    <p class="text-gray-300 mt-2"><strong>Composition:</strong> A relatively large team, composed of those who're just joining Blade and those who wish to remain as the 'RCU' for Blade.</p>
-                                    <p class="text-gray-300 mt-2"><strong>Assignment:</strong> Automatically placed into N'Nono upon arrival into Blade.</p>
-                                    <p class="text-gray-300 mt-2"><strong>Equipment:</strong> Due to his massive stature and size, Michael Adams was allocated with TFB's own heavy weaponry including an XM250.</p>
+                                    <p class="mb-4"><strong>Primary Directive:</strong> Protective detail for UIU directorate and VIPs, hostage rescue, and emergency recontainment operations.</p>
+                                    
+                                    <div class="bg-red-900 bg-opacity-40 border-2 border-red-500 p-4 my-6 rounded-lg">
+                                        <p class="text-red-200 font-semibold mb-2">⚠ FOUNDATIONAL RECORD - CLASSIFIED</p>
+                                        <p class="text-red-200">Due to recent tribulations and "Incidents" (The attempted murder of the Current Director of Unusual Incident Unit "Flanker" and the Acting Director of Unusual Incident Unit "Surge") associating TF-B and UIU, TF-B was purged under order "Post-Mortem" by majority vote conducted by the ODNOI [Office of Directorate of National Occult Intelligence] and directors of the Unusual Incidents Unit.</p>
+                                        <p class="text-red-200 mt-2">Adams was recruited during reformation and structural reorganization of TF-B, which has yet performed any recorded military and clandestine operations.</p>
+                                    </div>
+
+                                    <h4 class="text-lg text-yellow-500 mb-2 mt-6 font-bold">Task Force History</h4>
+                                    <p class="text-gray-300 mb-3">Following the events of IR-4001, a significant amount of infrastructure, records, and personnel within government agencies perished. This spurred the United States Government to issue an executive order to restructure their anomalous agencies especially. The previously severely underfunded Unusual Incidents Unit benefitted from gaining equipment and volunteers sent by the Central Intelligence Agency, allowing for the creation of new specialized divisions within the FBIUIU:</p>
+                                    <p class="text-gray-300 mb-4"><span class="highlight-text">Task Force "Blade"</span> is the UIU's guarding and MP task force. They provide security to UIU's directorate and VIPs, such as American executives when they visit our areas of operations.</p>
+                                    <h4 class="text-lg text-yellow-500 mb-2 mt-6 font-bold">N'Nono Warrior Crèche 〈 3-14233 〉</h4>
+                                    <p class="text-gray-300 mb-3">N'Nono Warrior Crèche is Blade's dedicated frontline recontainment element, specializing in combating SCP-class anomalies, emergency recontainment, and protection of High Command and critical assets during breach events and interviews. Each N'Nono element is operated by one Captain and one Field Officer, who share responsibility for mission command, rules-of-engagement decisions, and the controlled handoff to specialist or long-term containment teams.</p>
+                                    <p class="text-gray-300 mb-2"><strong>Composition:</strong> A relatively large team, composed of those who're just joining Blade and those who wish to remain as the 'RCU' for Blade.</p>
+                                    <p class="text-gray-300 mb-2"><strong>Assignment:</strong> Automatically placed into N'Nono upon arrival into Blade.</p>
+                                    <p class="text-gray-300"><strong>Equipment:</strong> Due to his massive stature and size, Michael Adams was allocated with TFB's own heavy weaponry including an XM250.</p>
                                 </div>
-                                <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/BUREAU%20OF%20(8).png" alt="TFB Logo" class="h-24 w-24 ml-6 flex-shrink-0">
+                                <img src="https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/BUREAU%20OF%20(8).png" alt="TFB Logo" class="h-24 w-24 flex-shrink-0">
                             </div>
                         </div>
 
                          <div id="operation" class="tab-pane hidden">
-                            <div class="text-center mb-4">
-                                <h2 class="text-2xl text-yellow-300 mb-2">Lore Operation, Declassified.</h2>
+                            <div class="text-center mb-6">
+                                <h2 class="text-2xl text-yellow-400 mb-2">Lore Operation, Declassified.</h2>
                                 <p class="text-red-500 font-bold text-xl">Mortuos Caede, Paraneutrales Occide</p>
                             </div>
                             
-                            <div class="text-sm text-gray-300 space-y-3">
-                                <div class="bg-gray-800 p-3 border-l-4 border-red-500">
+                            <div class="text-sm text-gray-300 space-y-4">
+                                <div class="bg-box border-accent border-red-500">
                                     <p><strong>From:</strong> ███. █████████████████</p>
                                     <p><strong>To:</strong> POTUS and the Director of FBI.</p>
                                     <p><strong>Subject:</strong> Operation █████████-████████</p>
@@ -637,31 +816,31 @@
                                 <p>Operation Illuminati Confirmed is a coordinated operation between the Unusual Incidents Unit's Task Force Blade (BLADE) and the U.S. Department of the ██████ and ████████████ ████████ (█████) and the British Occult Service, Under Her Majesty's Department of Arcane Affairs. The mission's primary objective is the neutralization or capture of an occult threat nicknamed "The ██████," currently resurrecting Illuminati-inspired esoteric CAN.</p>
 
                                 <h3 class="section-title">2) Rules of Engagement</h3>
-                                <div class="ml-4 space-y-2">
-                                    <p><strong class="text-yellow-400">Use of Force:</strong> Lethal or non‑lethal depending on threat level.</p>
-                                    <p><strong class="text-yellow-400">Civilian Shielding:</strong> Agents are ordered to avoid civilian interaction.</p>
+                                <div class="ml-6 space-y-2">
+                                    <p><strong class="text-yellow-500">Use of Force:</strong> Lethal or non‑lethal depending on threat level.</p>
+                                    <p><strong class="text-yellow-500">Civilian Shielding:</strong> Agents are ordered to avoid civilian interaction.</p>
                                 </div>
 
                                 <h3 class="section-title">3) Timeline & Status</h3>
-                                <div class="ml-4 space-y-2">
-                                    <p><strong class="text-yellow-400">Execution Window:</strong> July ██-████, ██.30</p>
-                                    <p><strong class="text-yellow-400">Current Positioning:</strong></p>
-                                    <div class="ml-4">
+                                <div class="ml-6 space-y-2">
+                                    <p><strong class="text-yellow-500">Execution Window:</strong> July ██-████, ██.30</p>
+                                    <p><strong class="text-yellow-500">Current Positioning:</strong></p>
+                                    <div class="ml-6">
                                         <p>→ Assets: Strike Team "██████"</p>
                                         <p>→ ETA to LZ if authorized, 16 Hours.</p>
                                     </div>
-                                    <p><strong class="text-yellow-400">Pre-Op Checkpoint:</strong> July 14, morning final Intel review at the ████████ HQ.</p>
+                                    <p><strong class="text-yellow-500">Pre-Op Checkpoint:</strong> July 14, morning final Intel review at the ████████ HQ.</p>
                                 </div>
 
                                 <h3 class="section-title">4) Presidential Directives</h3>
-                                <div class="ml-4 space-y-2">
+                                <div class="ml-6 space-y-2">
                                     <p>[ ] Authorization for lethal force if warranted</p>
                                     <p>[ ] Approval of full USDMS, UIU budget allocation</p>
                                     <p>[ ] Authorization to terminate any anomalies</p>
                                     <p>[ ] The rescue of entrapped US and British Operatives facing the anomaly</p>
                                 </div>
 
-                                <div class="mt-6 bg-gray-800 p-4 border-t-2 border-gray-600">
+                                <div class="mt-6 bg-box border-t-2 border-gray-600">
                                     <p class="mb-2"><strong>Prepared by:</strong></p>
                                     <p>███. ████████████████</p>
                                     <p class="text-cyan-300">The United States Department of the Occult and Metaphysical Sciences.</p>
@@ -671,7 +850,7 @@
                                     <p class="text-cyan-300">Her Majesty's Department of Arcane Affairs.</p>
                                 </div>
 
-                                <div class="mt-6 text-center border-2 border-yellow-500 p-4 bg-yellow-900">
+                                <div class="mt-6 text-center border-2 border-yellow-600 p-4 bg-yellow-900 bg-opacity-40">
                                     <p class="text-yellow-300 mb-3">⬥ For your eyes only. ⬥</p>
                                     <p class="mb-2"><strong>Sign here:</strong></p>
                                     <p class="mb-1">___________________________, President of the United States</p>
@@ -680,7 +859,7 @@
 
                                 <p class="text-center mt-4 text-red-500 font-bold text-xl">Mortuos Caede, Paraneutrales Occide</p>
                                 
-                                <div class="mt-6 bg-red-900 border-2 border-red-500 p-4">
+                                <div class="mt-6 bg-red-900 bg-opacity-40 border-2 border-red-500 p-4">
                                     <p class="text-red-200"><strong>POST-OPERATION NOTE:</strong></p>
                                     <p class="text-red-200 mt-2">Michael Adams was imperative in the termination of the CAN, providing suppressive fire and aiding TFB agents and civilians alike. He rescued a wounded TFB agent and transported them to a nearby field clinic before returning to the battlefield. Upon arrival, his actions were spontaneous: lunging towards the esoteric CAN and engaging it in brutal hand-to-hand combat, repeatedly stabbing it in the heart even amidst ongoing gunfire.</p>
                                     <p class="text-red-200 mt-2">The CAN was brutalized. It attempted to resist but was met by the sheer power and force of Michael's body, eventually succumbing to death following 23 counts of stabbing, a deep gash in its shoulder, and 4 bullet holes from an M9.</p>
@@ -690,6 +869,104 @@
                                 
                                 <div class="mt-4 text-xs text-gray-500 italic text-center">
                                     <p>Note: Most information in this document is classified. Full access requires UIU server clearance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div id="glasgow" class="tab-pane hidden">
+                            <div class="text-center mb-6">
+                                <h2 class="text-2xl text-red-400 mb-2">The Glasgow Incident</h2>
+                                <p class="text-gray-400 text-sm">July 8, 2024 | Glasgow, Scotland, UK</p>
+                                <p class="text-yellow-500 font-bold mt-2">The Day Everything Changed</p>
+                            </div>
+                            
+                            <div class="text-sm text-gray-300 space-y-4 leading-relaxed">
+                                <div class="bg-box border-accent border-cyan-400">
+                                    <p class="text-cyan-300 font-bold mb-2">Arrival - 07:45 Local Time</p>
+                                    <p>Adams arrived at the relatively calm town of Glasgow on July 8th, 2024, a relatively peaceful town with heart-warming people. He strolls around the cities' shops for some time, taking in the city's atmosphere and warmth - an escape from all the brutal and dry combat environment of Afghanistan.</p>
+                                </div>
+
+                                <p>He turns around a corner and spots a cab that's right about to leave, but he catches the driver in time. <span class="text-cyan-300">"That was fast mate, if you were a second slower I would've left ya,"</span> The driver mumbles. Adams simply responded <span class="text-green-400">"That's not my biggest concern, I can barely fit in here."</span> They chat for a bit while the driver navigates his way through the urban center of Glasgow.</p>
+
+                                <p><span class="text-green-400">"Right there. The cafe next to the supermarket."</span> The old cab slowly comes to a halt, and Adams gives a small tip to the driver as a sign of good-will. <span class="text-cyan-300">"Enjoy your time here mate,"</span> the driver responds.</p>
+
+                                <div class="bg-box border-accent border-yellow-600">
+                                    <p class="text-yellow-500 font-bold mb-2">Reunion - 08:15 Local Time</p>
+                                    <p>He enters the little cafe where his friend told him to meet in, and surveys the area before finally finding him. They hug and pat each other, before coming to sit at the table where his friend was sitting with two coffees already ordered.</p>
+                                </div>
+
+                                <p><span class="text-green-400">"Long time no see 'Wraith.'"</span></p>
+                                <p>A response came, <span class="text-blue-300">"You too 'Dozer,'"</span> as he lets off a small giggle.</p>
+                                <p><span class="text-green-400">"It's not that funny of a name,"</span> Adams responded.</p>
+
+                                <div class="bg-box my-4">
+                                    <p class="text-sm text-gray-400 italic">DEVGRU and E-Squadron ran an operation together in Syria back in 2019. A Precision strike on an HVT compound.</p>
+                                </div>
+
+                                <p><span class="text-blue-300">"Still built like a damn tank,"</span> Chen said. <span class="text-blue-300">"How do you even fit in planes anymore?"</span></p>
+                                <p><span class="text-green-400">"The Cargo bay,"</span> Adams replied while laughing hysterically.</p>
+                                <p><span class="text-blue-300">"Four years since Syria, how has it been?"</span></p>
+
+                                <p>Adams nodded, while holding the coffee mug, which was awfully hard to grip since his hand was that much bigger. <span class="text-green-400">"Just finished a seven day combat simulation. It's Brutal. They're rotating new agents, wanting us old-gen to show them how it's done."</span></p>
+
+                                <p><span class="text-blue-300">"Old-gen? You're what, thirty-two? I didn't know you speak like a Gen-Z"</span></p>
+                                <p><span class="text-green-400">"Thirty-three. It feels like fifty sometimes."</span> Adams took a gentle sip at the mug. <span class="text-green-400">"What about you? You're out of 'it', right?"</span></p>
+
+                                <p>Chen paused for a brief second, while Adams became more relaxed as he leaned back, <span class="text-blue-300">"Yeah, been out for about eighteen months. I did my ten years, got my Certificate of Service, and decided to try civilian life. Contract work mostly. Security consulting for corporations, risk assessment. Still pays better, nobody's shooting at me."</span></p>
+
+                                <p><span class="text-green-400">"Miss it?"</span></p>
+                                <p><span class="text-blue-300">"Every goddamn day."</span> Chen's smile faded slightly. <span class="text-blue-300">"But my daughter's seven now. The wife made it clear, Tier-0 or family. Couldn't be both forever."</span></p>
+
+                                <p><span class="text-green-400">"And I thought I was the old one, You have a daughter?"</span></p>
+                                <p><span class="text-blue-300">"Yeah, I kept that one a personal secret. What about you?"</span></p>
+
+                                <p><span class="text-green-400">"Just the Teams. Tried the dating thing between deployments. Doesn't really work when you can't tell them where you've been or where you're going."</span> Adams shrugged. <span class="text-green-400">"Maybe later."</span></p>
+
+                                <p>He stared into his coffee, watching the steam slowly rise. <span class="text-green-400">"I don't know what I'd do, honestly. This is all I've been good at since I was twenty two. BUD/S, Afghanistan, Green Team, DEVGRU. What do guys like us do when we're not doing this?"</span></p>
+
+                                <p><span class="text-blue-300">"We figured it out,"</span> Chen said. <span class="text-blue-300">"Some guys start businesses. Some become cops, firefighters. Some drink themselves to death. It's a mixed bag."</span> He paused. <span class="text-blue-300">"Do you remember Edward from our Syria operation back in 17?"</span></p>
+
+                                <p><span class="text-green-400">"The ranger? Yeah."</span></p>
+                                <p><span class="text-blue-300">"He's been silent for a few months. Three months after he got out of a skirmish in Iran. He's here in Britain somewhere with MI6"</span></p>
+
+                                <p><span class="text-green-400">"That's what war does to people,"</span> Adams muttered.</p>
+                                <p><span class="text-blue-300">"Yeah. Maybe it's your time to go out too."</span></p>
+
+                                <p>Adams nodded slowly. <span class="text-green-400">"I will. Don't worry."</span></p>
+                                <p><span class="text-blue-300">"Good. Anyway, enough of the heavy talk. You're in Glasgow. Let me show you around."</span></p>
+
+                                <p>Both stood up and reared their way to the exit, but right as they were about to exit.</p>
+
+                                <div class="my-6 bg-red-900 bg-opacity-50 border-2 border-red-500 p-6 text-center">
+                                    <p class="text-red-200 text-2xl font-bold mb-2">08:47 LOCAL TIME</p>
+                                    <p class="text-red-300 text-xl">ANOMALOUS DETONATION EVENT</p>
+                                </div>
+
+                                <p class="text-red-300 font-bold">A deafening crack broke the atmosphere as the flame hurled to their location.</p>
+
+                                <p>The explosion hurled Adams back a few dozen feet, he tried to stand up but the overwhelming weight of something was on him. It was Chen. He quickly used every ounce of strength left in his body to stand up, to search for something, anything to stop Chen's bleeding, but it was already too late.</p>
+
+                                <p>Chen whispered in a low voice, <span class="text-blue-300 italic">"Here..? In Glasgow..?"</span> He coughs up blood. He attempted to continue, but his body gave up before he could mutter the next word.</p>
+
+                                <div class="bg-box border-2 border-gray-600 my-4 italic">
+                                    <p class="text-gray-400">Adams was in grief, another brother dead, not in combat, but in British Territory where no war's supposed to happen.</p>
+                                </div>
+
+                                <p>He moved the large chunks of rubble aside with his large body, and saw three UH-60 Blackhawk helicopters descending from the sky.</p>
+
+                                <p>Instinctively, he knew that something horrible had happened, and escorted any civilians he could see out of the area.</p>
+
+                                <p class="text-yellow-500 font-bold">On the last run, he could see an operator soaked in blood, died the fury of battle as the rattling of bullets and machine gun fire continued, he didn't know why he did what he did, but he ran towards it, took the radio and the M250, and lunged right into the scene.</p>
+
+                                <div class="mt-6 bg-yellow-900 bg-opacity-40 border-2 border-yellow-600 p-4">
+                                    <p class="text-yellow-200 font-bold mb-2">AFTERMATH ANALYSIS:</p>
+                                    <p class="text-yellow-200">This incident marked the beginning of Operation █████████-████████ and Michael Adams' first contact with anomalous entities. The death of Chen "Wraith" Wei, former E-Squadron operative, served as the catalyst for Adams' transition from conventional special operations to UIU Task Force Blade.</p>
+                                    <p class="text-yellow-200 mt-2">Chen Wei is memorialized within the UIU's Wall of the Fallen as a civilian casualty of anomalous warfare.</p>
+                                </div>
+
+                                <div class="text-center mt-6">
+                                    <p class="text-cyan-400 italic">"Every operator lost is a brother. Every civilian lost is a failure."</p>
+                                    <p class="text-gray-500 text-sm mt-2">- UIU Task Force Blade Motto</p>
                                 </div>
                             </div>
                         </div>
@@ -708,7 +985,7 @@
                                     <p>████████, ███████ - ███████████████</p>
                                     <p>███████, ████ - █████████████████</p>
                                     <p>████████, ███ - █████████████</p>
-                                    <p id="adams-record-trigger" class="cursor-pointer hover:bg-gray-200 p-1">Michael Adams - DEVGRU NCO E-7</p>
+                                    <p id="adams-record-trigger" class="cursor-pointer hover:bg-gray-200 p-1 rounded transition-colors">Michael Adams - DEVGRU NCO E-7</p>
                                     <p>█████████, ████████ - ████████████████</p>
                                     <p>███████, ██████ - ████████████████</p>
                                     <p>███████, ███████ - █████████████████</p>
@@ -726,7 +1003,7 @@
 
                         <div id="morph" class="tab-pane hidden">
                             <h3 class="section-title">Appearance & Loadout Configuration (Morph)</h3>
-                            <pre class="bg-gray-800 p-4 whitespace-pre-wrap text-sm"><code>run
+                            <pre class="bg-gray-800 bg-opacity-60 p-4 whitespace-pre-wrap text-sm border border-gray-600"><code>run
 permmorph EchelonInfinity remove
 &unpermall EchelonInfinity
 &clearstartergear EchelonInfinity
@@ -743,6 +1020,12 @@ permmorph EchelonInfinity remove
 &permmaxhealth EchelonInfinity 180
 &permscale EchelonInfinity 1.125</code></pre>
                             <p class="text-gray-400 text-sm mt-4">Note: Due to operative's heavy weapons specialist role and enhanced physical conditioning, maximum health has been increased to 180. Standard UIU loadout modified for N'Nono Heavy Response Unit configuration with XM250 light machine gun.</p>
+                        </div>
+
+                        <div id="radio" class="tab-pane hidden">
+                            <button id="start-radio-playback" class="bg-red-600 text-white px-6 py-3 text-lg interactive-button border-2 border-white hover:bg-red-700 transition-colors">
+                                ► PLAY RECOVERED TRANSMISSION
+                            </button>
                         </div>
                     </div>
                 `;
@@ -770,11 +1053,196 @@ permmorph EchelonInfinity remove
                 });
 
                 document.getElementById('adams-record-trigger').addEventListener('click', showAdamsRecord);
+
+                const startRadioButton = document.getElementById('start-radio-playback');
+                if (startRadioButton) {
+                    startRadioButton.addEventListener('click', startRadioPlayback);
+                }
+            }
+
+            function startRadioPlayback() {
+                const radioScreen = document.getElementById('radio-playback-screen');
+                const radioContent = document.getElementById('radio-playback-content');
+                
+                if (!audioCtx) {
+                    initAudio();
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                }
+                
+                radioScreen.classList.remove('hidden');
+                radioContent.innerHTML = '';
+                
+                playRadioStatic();
+                
+                const lines = [
+                    { text: "═══════════════════════════════════════════════════", delay: 20 },
+                    { text: "RECOVERED RADIO TRANSMISSION - OPERATION GLASGOW", delay: 50, isTitle: true },
+                    { text: "═══════════════════════════════════════════════════", delay: 20 },
+                    { text: "Classification: TS/SCI | Eyes Only", delay: 50, isHeader: true },
+                    { text: "Date: ██/██/2024 | Location: Glasgow, UK", delay: 50, isHeader: true },
+                    { text: " ", delay: 20 },
+                    { text: "[INITIALIZING PLAYBACK...]", delay: 30, isStatic: true, playBurst: true },
+                    { text: " ", delay: 20 },
+                    { text: "═══ VIDEO FEED ALPHA - OPERATION GLASGOW THEATER ═══", delay: 30, isVideo: true, videoSrc: "https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/istockphoto-619036478-640_adpp_is.mp4" },
+                    { text: " ", delay: 20 },
+                    { text: "Adams: CONTROL, CONTROL, do you hear me?!", delay: 40, speaker: "Adams" },
+                    { text: "[STATIC CRACKLE]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Identify yourself. How did you acquire this frequency?", delay: 40, speaker: "CONTROL" },
+                    { text: "Adams: This is Petty Officer Michael Adams, DEVGRU. I just pulled this radio off a dead operator. What the hell is happening here?!", delay: 40, speaker: "Adams" },
+                    { text: "CONTROL: Adams wait, DEVGRU Adams? Yemen '17? What are you doing in Glasgow?", delay: 40, speaker: "CONTROL" },
+                    { text: "Adams: I'm on goddamn leave! I need to know what I'm shooting at!", delay: 40, speaker: "Adams", isUrgent: true },
+                    { text: "[PAUSE - HEAVY GUNFIRE IN BACKGROUND]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Stand by. Confirming identity... Jesus Christ, it IS you. Okay Adams, listen carefully. You've stumbled into a Tier-Zero classified operation. Hostile entities designated CAN, extremely dangerous, anomalous threats. We have TFB agents engaged but..", delay: 40, speaker: "CONTROL" },
+                    { text: "Adams: The hell is a CAN?!", delay: 40, speaker: "Adams", isUrgent: true },
+                    { text: "CONTROL: Ignore it. We have eyes on your position now. Confirming visual on suppressive fire that M250 is doing work. Effective coverage on hostile entities. TFB agents are advancing under your cover.", delay: 40, speaker: "CONTROL" },
+                    { text: "[PAUSE - HEAVY GUNFIRE IN BACKGROUND]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Adams, we're tracking an Agent going down, southeast of your position, approximately forty meters. He's not moving. Can you…", delay: 40, speaker: "CONTROL" },
+                    { text: "[BRIEF STATIC]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Copy that, Adams. We see you moving to extract. Keep your head down. Hostile is still active and, Jesus, you're fast for someone carrying that beast of a weapon. Okay, you've got him. The field clinic is seventy-five meters north-northwest. Get him there and fall back", delay: 40, speaker: "CONTROL" },
+                    { text: "[PAUSE - 8 SECONDS]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Adams, you're back?! Where the hell are you?", delay: 40, speaker: "CONTROL", isUrgent: true },
+                    { text: "[URGENT TONE]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: ADAMS, NEGATIVE! Do NOT engage the CAN directly! You are not authorized for close-quarters with Adams, STAND DOWN! We have units converging on..", delay: 40, speaker: "CONTROL", isUrgent: true },
+                    { text: "[SHOUTING, OVERLAPPING VOICES IN BACKGROUND]", delay: 30, isStatic: true, playBurst: true },
+                    { text: " ", delay: 20 },
+                    { text: "═══ VIDEO FEED BRAVO - CAN ENGAGEMENT ═══", delay: 30, isVideo: true, videoSrc: "https://raw.githubusercontent.com/loveisnoob/TF-B-UIU-PERSONAL_FILES-Z-O-23-Michael-Adams/main/Untitled%20video%20-%20Made%20with%20Clipchamp%20(8).mp4" },
+                    { text: " ", delay: 20 },
+                    { text: "SECONDARY VOICE: Control, requesting Identification on the individual, we don't know who the hell or what the hell he's doing.", delay: 40, speaker: "SECONDARY" },
+                    { text: "CONTROL: Affirmative. Call sign \"Dozer.\" And he's on it. He's… Could someone confirm what I'm seeing?", delay: 40, speaker: "CONTROL" },
+                    { text: "SECONDARY VOICE: Confirmed, Control. Target is in hand-to-hand with the hostile. Multiple stab wounds observed on the CAN. It's attempting to counter but Adams isn't giving it room.", delay: 40, speaker: "SECONDARY" },
+                    { text: "CONTROL: All units, CEASE FIRE! Cease fire, you'll hit Adams! Get those safeties NOW!", delay: 40, speaker: "CONTROL", isUrgent: true },
+                    { text: "[10 SECONDS OF CHAOTIC RADIO CHATTER]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Count... Jesus, he's still going. CAN resistance is weakening. Multiple penetrating wounds to the thoracic cavity. Deep laceration to shoulder observed. Switching to thermal, hostile is losing core temperature.", delay: 40, speaker: "CONTROL" },
+                    { text: "[PAUSE]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: CAN has ceased movement. I repeat, CAN has ceased movement. Confirming termination... twenty-three stab wounds, severe shoulder trauma, four gunshot wounds from what looks like an M9. Adams, the target is neutralized. You can…", delay: 40, speaker: "CONTROL" },
+                    { text: "[BRIEF STATIC]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Adams, the target is down, you can stop now.", delay: 40, speaker: "CONTROL" },
+                    { text: "[PAUSE]", delay: 30, isStatic: true, playBurst: true },
+                    { text: "CONTROL: Hell of a job, Dozer. We'll debrief on the other side, but you've got yourself some explaining to do.", delay: 40, speaker: "CONTROL" },
+                    { text: "[STATIC - TRANSMISSION ENDS]", delay: 30, isStatic: true, playBurst: true },
+                    { text: " ", delay: 20 },
+                    { text: "═══════════════════════════════════════════════════", delay: 20 },
+                    { text: "POST-TRANSMISSION ANALYSIS:", delay: 50, isHeader: true },
+                    { text: "═══════════════════════════════════════════════════", delay: 20 },
+                    { text: " ", delay: 20 },
+                    { text: "This transmission was recovered from Operation Glasgow archives following IR-4001 Post-Response. Subject Adams demonstrated exceptional combat effectiveness and tactical awareness despite zero prior exposure to anomalous entities. His actions resulted in the neutralization of a Class-IV CAN threat and the successful extraction of wounded TFB personnel.", delay: 40 },
+                    { text: " ", delay: 20 },
+                    { text: "Analysis of thermal imaging and audio feeds confirms 23 knife wounds, severe shoulder trauma, and 4 M9 pistol rounds delivered to the hostile entity. Time from initial engagement to neutralization: approximately 47 seconds.", delay: 40 },
+                    { text: " ", delay: 20 },
+                    { text: "Subject Adams was immediately flagged for UIU recruitment following this incident.", delay: 40 },
+                    { text: " ", delay: 20 },
+                    { text: "═══════════════════════════════════════════════════", delay: 20 },
+                    { text: "[END OF TRANSMISSION]", delay: 30, isStatic: true, playBurst: true, isEnd: true }
+                ];
+
+                let currentIndex = 0;
+
+                function displayNextLine() {
+                    if (currentIndex >= lines.length) {
+                        setTimeout(() => {
+                            stopRadioStatic();
+                            radioScreen.style.opacity = '0';
+                            radioScreen.style.transition = 'opacity 1s ease-out';
+                            setTimeout(() => {
+                                radioScreen.classList.add('hidden');
+                                radioScreen.style.opacity = '1';
+                            }, 1000);
+                        }, 3000);
+                        return;
+                    }
+
+                    const line = lines[currentIndex];
+                    const p = document.createElement('p');
+                    p.className = 'radio-playback-line';
+                    
+                    if (line.isTitle) {
+                        p.className += ' text-3xl text-yellow-500 font-bold mb-4';
+                    } else if (line.isHeader) {
+                        p.className += ' text-xl text-cyan-300 mb-2';
+                    } else if (line.isStatic) {
+                        p.className += ' text-gray-500 italic radio-static-effect';
+                        if (line.playBurst) {
+                            playStaticBurst();
+                        }
+                    } else if (line.isUrgent) {
+                        p.className += ' text-red-400 font-bold';
+                    } else if (line.speaker === "Adams") {
+                        p.className += ' text-green-400';
+                    } else if (line.speaker === "CONTROL") {
+                        p.className += ' text-cyan-300';
+                    } else if (line.speaker === "SECONDARY") {
+                        p.className += ' text-blue-300';
+                    }
+
+                    if (line.isVideo) {
+                        p.className += ' text-yellow-400 font-bold my-4 text-2xl';
+                        radioContent.appendChild(p);
+                        typeWriter(p, line.text, line.delay, () => {
+                            const videoContainer = document.createElement('div');
+                            videoContainer.className = 'radio-video-frame';
+                            const video = document.createElement('video');
+                            video.className = 'w-full';
+                            video.autoplay = true;
+                            video.controls = true;
+                            video.muted = false;
+                            video.playsInline = true;
+                            const source = document.createElement('source');
+                            source.src = line.videoSrc;
+                            source.type = 'video/mp4';
+                            video.appendChild(source);
+                            videoContainer.appendChild(video);
+                            radioContent.appendChild(videoContainer);
+                            
+                            // Smooth scroll to video
+                            setTimeout(() => {
+                                videoContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 100);
+                            
+                            // Handle video end or error
+                            video.addEventListener('ended', () => {
+                                currentIndex++;
+                                displayNextLine();
+                            });
+                            
+                            video.addEventListener('error', (e) => {
+                                console.log('Video error:', e);
+                                // Continue anyway after 3 seconds
+                                setTimeout(() => {
+                                    currentIndex++;
+                                    displayNextLine();
+                                }, 3000);
+                            });
+                            
+                            // Fallback: continue after 30 seconds if video doesn't end
+                            setTimeout(() => {
+                                if (currentIndex === lines.findIndex(l => l.videoSrc === line.videoSrc)) {
+                                    currentIndex++;
+                                    displayNextLine();
+                                }
+                            }, 30000);
+                        });
+                    } else {
+                        radioContent.appendChild(p);
+                        typeWriter(p, line.text, line.delay, () => {
+                            // Smooth scroll to bottom
+                            setTimeout(() => {
+                                p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 50);
+                            
+                            currentIndex++;
+                            setTimeout(displayNextLine, line.isEnd ? 500 : 100);
+                        });
+                    }
+                }
+
+                displayNextLine();
             }
 
             function showAdamsRecord() {
                 const content = `
-                    <div class="bg-white text-black p-4" style="font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div class="bg-white text-black p-6" style="font-family: 'Courier New', monospace; font-size: 14px;">
                         <pre class="whitespace-pre-wrap">
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // UIU CLASSIFIED PERSONNEL EXTRACT
@@ -1001,7 +1469,7 @@ Following Operation █████████-████████, subjec
                     const button = document.createElement('button');
                     button.textContent = net === 'PERSONNEL FILES' ? net : `[REDACTED]`;
                     if (networks[net]) {
-                        button.className = 'bg-yellow-600 text-black px-4 py-2 interactive-button border-2 border-white';
+                        button.className = 'bg-yellow-600 text-black px-4 py-2 interactive-button border-2 border-white hover:bg-yellow-700 transition-colors';
                         button.onclick = () => { 
                             container.remove(); 
                             showLoginPopup();
@@ -1036,11 +1504,11 @@ Following Operation █████████-████████, subjec
                 container.className = 'flex gap-4 my-4';
                 const yesButton = document.createElement('button');
                 yesButton.textContent = 'Y';
-                yesButton.className = 'text-green-500 border border-green-500 px-4 py-2 interactive-button hover:bg-green-500 hover:text-black';
+                yesButton.className = 'text-green-500 border-2 border-green-500 px-4 py-2 interactive-button hover:bg-green-500 hover:text-black transition-colors';
                 yesButton.onclick = showPersonnelFile;
                 const noButton = document.createElement('button');
                 noButton.textContent = 'N';
-                noButton.className = 'text-red-500 border border-red-500 px-4 py-2 interactive-button hover:bg-red-500 hover:text-black';
+                noButton.className = 'text-red-500 border-2 border-red-500 px-4 py-2 interactive-button hover:bg-red-500 hover:text-black transition-colors';
                 container.appendChild(yesButton);
                 container.appendChild(noButton);
                 terminalContent.appendChild(container);
